@@ -1,0 +1,71 @@
+body {
+  background-color: #eee;
+  text-align: center;
+  overflow: hidden;
+  text-shadow: 1px 1px 0px #ddd;
+}
+
+input {
+  box-sizing: border-box;
+  border-radius: 2px;
+  border: 1px solid #999;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 3px 3px 0px #ddd;
+}
+
+h3 {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.date {
+  font-family: 'Open Sans', sans-serif;
+  color: #111;
+  max-width: 110px;
+  min-height: 32px;
+  text-align: center;
+  font-size: 14px;
+  color: #222;
+  position: relative;
+}
+
+.date-time {
+  max-width: 160px;
+}
+
+.time {
+  min-width: 110px;
+}
+
+.date:focus {
+  border-color: #333;
+}
+
+.fa-calendar {
+  cursor: pointer;
+  font-size: 20px;
+  padding: 4px;
+  vertical-align: middle;
+  color: #555;
+}
+
+.fa-calendar:hover {
+  color: #333;
+}
+
+.date::-webkit-inner-spin-button,
+.date::-webkit-outer-spin-button,
+.date::-webkit-calendar-picker-indicator,
+.date::-webkit-clear-button {
+  -webkit-appearance: none;
+  display: none;
+  margin: 0;
+}
+
+.date::-webkit-datetime-edit-text,
+.date::-webkit-datetime-edit-hour-field,
+.date::-webkit-datetime-edit-minute-field,
+.date::-webkit-datetime-edit-second-field,
+.date::-webkit-datetime-edit-ampm-field {
+  color: #666;
+}

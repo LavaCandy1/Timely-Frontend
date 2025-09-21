@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Toggle Button Example</title>
+  </head>
+  <body>
+    <button id="toggleButton">Toggle Function</button>
+
+    <script>
+      function toggleFunction() {
+        let isToggled = false;
+
+        return function () {
+          isToggled = !isToggled;
+          if (isToggled) {
+            console.log("Function is now toggled ON");
+            // You can add your code to be executed when the function is toggled ON here
+          } else {
+            console.log("Function is now toggled OFF");
+            // You can add your code to be executed when the function is toggled OFF here
+          }
+        };
+      }
+
+      const toggle = toggleFunction();
+
+      const toggleButton = document.getElementById("sid");
+      toggleButton.addEventListener("click", toggle);
+    </script>
+  </body>
+</html>

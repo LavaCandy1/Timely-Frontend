@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .draggable-div {
+        width: 200px;
+        height: 100px;
+        background-color: lightblue;
+        border: 1px solid #000;
+        position: absolute;
+      }
+
+      .draggable-div input[type="text"] {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="draggable-div" id="myDraggableDiv">
+      <input type="text" id="editableTextBox" value="Editable Text" />
+    </div>
+
+    <script>
+      // Make the div draggable
+      var draggableDiv = document.getElementById("myDraggableDiv");
+      var isDragging = false;
+      var offsetX, offsetY;
+
+      draggableDiv.addEventListener("mousedown", function (e) {
+        isDragging = true;
+        offsetX = e.clientX - draggableDiv.getBoundingClientRect().left;
+        offsetY = e.clientY - draggableDiv.getBoundingClientRect().top;
+      });
+
+      document.addEventListener("mousemove", function (e) {
+        if (isDragging) {
+          var x = e.clientX - offsetX;
+          var y = e.clientY - offsetY;
+          draggableDiv.style.left = x + "px";
+          draggableDiv.style.top = y + "px";
+        }
+      });
+
+      document.addEventListener("mouseup", function () {
+        isDragging = false;
+      });
+
+      // Make the text input editable
+      var editableTextBox = document.getElementById("editableTextBox");
+      editableTextBox.addEventListener("dblclick", function () {
+        editableTextBox.removeAttribute("readonly");
+      });
+
+      editableTextBox.addEventListener("blur", function () {
+        editableTextBox.setAttribute("readonly", "readonly");
+      });
+    </script>
+  </body>
+</html>

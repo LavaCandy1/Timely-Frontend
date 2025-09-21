@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Time Input Boxes</title>
+  </head>
+  <body>
+    <label for="time1">Enter Time 1: </label>
+    <input type="time" id="time1" name="time1" />
+
+    <label for="time2">Enter Time 2: </label>
+    <input type="time" id="time2" name="time2" />
+
+    <button onclick="calculateTimeDifference()">
+      Calculate Time Difference
+    </button>
+
+    <p id="result"></p>
+
+    <script>
+      function calculateTimeDifference() {
+        const time1Input = document.getElementById("time1");
+        const time2Input = document.getElementById("time2");
+        const resultElement = document.getElementById("result");
+
+        const time1 = new Date("1970-01-01T" + time1Input.value + "Z");
+        const time2 = new Date("1970-01-01T" + time2Input.value + "Z");
+
+        const timeDifference = new Date(time2 - time1);
+
+        const hours = timeDifference.getUTCHours();
+        const minutes = timeDifference.getUTCMinutes();
+        const seconds = timeDifference.getUTCSeconds();
+
+        resultElement.textContent = `Time Difference: ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+      }
+    </script>
+  </body>
+</html>

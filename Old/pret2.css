@@ -20,7 +20,7 @@
 
   --ribon-color: #4a6382;
   --nav-bar-color: #071739;
-  --background-color: #cdd4da;
+  --background-color: #e1e1e1;
   --line-color: #1a130565;
 }
 
@@ -233,7 +233,7 @@ body {
   font-family: "Rubik", sans-serif;
   width: 100%;
   height: 100%;
-  letter-spacing: 50px;
+  letter-spacing: 25px;
   font-size: 48px;
   text-orientation: upright;
   writing-mode: vertical-rl;
@@ -973,18 +973,14 @@ h3 {
   opacity: 0;
 }
 /* **********************************************SLOTS***************************************************** */
-/* DAYYYYYYYYYYYYYYYYYSADUSADUYHSAUDHSAUYHDSAUD */
+/* DAYS*/
 /* Monday: 3 to 4 */
 /* Tuesday: 4 to 5 */
 /* Wednesday: 5 to 6 */
 /* Thursday: 6 to 7 */
 /* Friday: 7 to 8 */
-/* BUFFFERRRRRRRRRRRRRRRRRRRRRRRR */
-/* BUFFFERRRRRRRRRRRRRRRRRRRRRRRR */
-/* BUFFFERRRRRRRRRRRRRRRRRRRRRRRR */
-/* BUFFFERRRRRRRRRRRRRRRRRRRRRRRR */
-/* BUFFFERRRRRRRRRRRRRRRRRRRRRRRR */
-/* TIMEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE */
+
+/* TIMEE */
 /* 8:30am: 2 to 3 */
 /* 9:30am: 3 to 4 */
 /* 10:40am: 4 to 5 */
@@ -1026,326 +1022,6 @@ h3 {
 .SLOT {
   margin-top: 56px;
 }
-/* .slot1 {
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 2;
-  grid-row-end: 3;
-  z-index: 2;
-}
-.slot2 {
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 3;
-  grid-row-end: 4;
-
-  z-index: 2;
-}
-.slot3 {
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 4;
-  grid-row-end: 5;
-
-  z-index: 2;
-}
-.slot4 {
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 5;
-  grid-row-end: 6;
-
-  z-index: 2;
-}
-.slot5 {
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 7;
-  grid-row-end: 8;
-
-  z-index: 2;
-}
-.slot6 {
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 8;
-  grid-row-end: 9;
-
-  z-index: 2;
-}
-.slot7 {
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 9;
-  grid-row-end: 10;
-
-  z-index: 2;
-}
-.slot8 {
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 10;
-  grid-row-end: 11;
-
-  z-index: 2;
-}
-.slot9 {
-  grid-column-start: 4;
-  grid-column-end: 5;
-  grid-row-start: 2;
-  grid-row-end: 3;
-
-  z-index: 2;
-}
-.slot10 {
-  grid-column-start: 4;
-  grid-column-end: 5;
-  grid-row-start: 3;
-  grid-row-end: 4;
-
-  z-index: 2;
-}
-.slot11 {
-  grid-column-start: 4;
-  grid-column-end: 5;
-  grid-row-start: 4;
-  grid-row-end: 5;
-
-  z-index: 2;
-}
-.slot12 {
-  grid-column-start: 4;
-  grid-column-end: 5;
-  grid-row-start: 5;
-  grid-row-end: 6;
-
-  z-index: 2;
-}
-.slot13 {
-  grid-column-start: 4;
-  grid-column-end: 5;
-  grid-row-start: 7;
-  grid-row-end: 8;
-
-  z-index: 2;
-}
-.slot14 {
-  grid-column-start: 4;
-  grid-column-end: 5;
-  grid-row-start: 8;
-  grid-row-end: 9;
-
-  z-index: 2;
-}
-.slot15 {
-  grid-column-start: 4;
-  grid-column-end: 5;
-  grid-row-start: 9;
-  grid-row-end: 10;
-
-  z-index: 2;
-}
-.slot16 {
-  grid-column-start: 4;
-  grid-column-end: 5;
-  grid-row-start: 10;
-  grid-row-end: 11;
-
-  z-index: 2;
-}
-.slot17 {
-  grid-column-start: 5;
-  grid-column-end: 6;
-  grid-row-start: 2;
-  grid-row-end: 3;
-
-  z-index: 2;
-}
-.slot18 {
-  grid-column-start: 5;
-  grid-column-end: 6;
-  grid-row-start: 3;
-  grid-row-end: 4;
-
-  z-index: 2;
-}
-.slot19 {
-  grid-column-start: 5;
-  grid-column-end: 6;
-  grid-row-start: 4;
-  grid-row-end: 5;
-
-  z-index: 2;
-}
-.slot20 {
-  grid-column-start: 5;
-  grid-column-end: 6;
-  grid-row-start: 5;
-  grid-row-end: 6;
-
-  z-index: 2;
-}
-.slot21 {
-  grid-column-start: 5;
-  grid-column-end: 6;
-  grid-row-start: 7;
-  grid-row-end: 8;
-
-  z-index: 2;
-}
-.slot22 {
-  grid-column-start: 5;
-  grid-column-end: 6;
-  grid-row-start: 8;
-  grid-row-end: 9;
-
-  z-index: 2;
-}
-.slot23 {
-  grid-column-start: 5;
-  grid-column-end: 6;
-  grid-row-start: 9;
-  grid-row-end: 10;
-
-  z-index: 2;
-}
-.slot24 {
-  grid-column-start: 5;
-  grid-column-end: 6;
-  grid-row-start: 10;
-  grid-row-end: 11;
-
-  z-index: 2;
-}
-.slot25 {
-  grid-column-start: 6;
-  grid-column-end: 7;
-  grid-row-start: 2;
-  grid-row-end: 3;
-
-  z-index: 2;
-}
-.slot26 {
-  grid-column-start: 6;
-  grid-column-end: 7;
-  grid-row-start: 3;
-  grid-row-end: 4;
-
-  z-index: 2;
-}
-.slot27 {
-  grid-column-start: 6;
-  grid-column-end: 7;
-  grid-row-start: 4;
-  grid-row-end: 5;
-
-  z-index: 2;
-}
-.slot28 {
-  grid-column-start: 6;
-  grid-column-end: 7;
-  grid-row-start: 5;
-  grid-row-end: 6;
-
-  z-index: 2;
-}
-.slot29 {
-  grid-column-start: 6;
-  grid-column-end: 7;
-  grid-row-start: 7;
-  grid-row-end: 8;
-
-  z-index: 2;
-}
-.slot30 {
-  grid-column-start: 6;
-  grid-column-end: 7;
-  grid-row-start: 8;
-  grid-row-end: 9;
-
-  z-index: 2;
-}
-.slot31 {
-  grid-column-start: 6;
-  grid-column-end: 7;
-  grid-row-start: 9;
-  grid-row-end: 10;
-
-  z-index: 2;
-}
-.slot32 {
-  grid-column-start: 6;
-  grid-column-end: 7;
-  grid-row-start: 10;
-  grid-row-end: 11;
-
-  z-index: 2;
-}
-.slot33 {
-  grid-column-start: 7;
-  grid-column-end: 8;
-  grid-row-start: 2;
-  grid-row-end: 3;
-
-  z-index: 2;
-}
-.slot34 {
-  grid-column-start: 7;
-  grid-column-end: 8;
-  grid-row-start: 3;
-  grid-row-end: 4;
-
-  z-index: 2;
-}
-.slot35 {
-  grid-column-start: 7;
-  grid-column-end: 8;
-  grid-row-start: 4;
-  grid-row-end: 5;
-
-  z-index: 2;
-}
-.slot36 {
-  grid-column-start: 7;
-  grid-column-end: 8;
-  grid-row-start: 5;
-  grid-row-end: 6;
-
-  z-index: 2;
-}
-.slot37 {
-  grid-column-start: 7;
-  grid-column-end: 8;
-  grid-row-start: 7;
-  grid-row-end: 8;
-
-  z-index: 2;
-}
-.slot38 {
-  grid-column-start: 7;
-  grid-column-end: 8;
-  grid-row-start: 8;
-  grid-row-end: 9;
-
-  z-index: 2;
-}
-.slot39 {
-  grid-column-start: 7;
-  grid-column-end: 8;
-  grid-row-start: 9;
-  grid-row-end: 10;
-
-  z-index: 2;
-}
-.slot40 {
-  grid-column-start: 7;
-  grid-column-end: 8;
-  grid-row-start: 10;
-  grid-row-end: 11;
-  z-index: 2;
-} */
-/*****************************************************************Events and current****************************/
-
 .even {
   z-index: 1;
   display: inline;
@@ -1384,9 +1060,6 @@ h3 {
   user-select: none;
 }
 
-/* 
-********************************************************LOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL**************************************************
- */
 
 .button--bestia {
   position: absolute;
@@ -1490,7 +1163,6 @@ h3 {
   top: 20px;
 }
 
-/* askdaoskdoisakdoisadsaasddddddddddddddddasdsadsadjsajdosaijdoisajdoiajowjodjsaanwdwnadhn */
 
 .item-5 {
   background-color: #886d60;
@@ -1569,10 +1241,7 @@ h3 {
 .divClose:hover {
   background-color: #c7c9cf;
 }
-/* FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS */
-/* FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS */
-/* FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS */
-/* FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS FORM SECTIONS */
+
 
 form {
   height: 85%;
@@ -1759,10 +1428,9 @@ form {
 .batchInput:focus {
   outline: none;
 }
-/*  TTTTTTTTTTTTTTTTTIIIIIIIIIIIIIIIIIIIIIMMMMMMMMMMMMMMMMMMMMMMMMMMEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE */
-/*  TTTTTTTTTTTTTTTTTIIIIIIIIIIIIIIIIIIIIIMMMMMMMMMMMMMMMMMMMMMMMMMMEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE */
-/*  TTTTTTTTTTTTTTTTTIIIIIIIIIIIIIIIIIIIIIMMMMMMMMMMMMMMMMMMMMMMMMMMEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE */
-/*  TTTTTTTTTTTTTTTTTIIIIIIIIIIIIIIIIIIIIIMMMMMMMMMMMMMMMMMMMMMMMMMMEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE */
+
+/*  TIME */
+
 .rangeTinput {
   box-sizing: border-box;
   border-radius: 2px;
@@ -1823,10 +1491,7 @@ form {
 .date::-webkit-datetime-edit-ampm-field {
   color: #666;
 }
-/* CLASSSSSSSSSSSSSS-------------LLLLLLLLLLLLLIIIIIIIIIIIIIIIIIIISSSSSSSSSSSSSSSSSSSSTTTTTTTTTTTTTTTTTTTT */
-/* CLASSSSSSSSSSSSSS-------------LLLLLLLLLLLLLIIIIIIIIIIIIIIIIIIISSSSSSSSSSSSSSSSSSSSTTTTTTTTTTTTTTTTTTTT */
-/* CLASSSSSSSSSSSSSS-------------LLLLLLLLLLLLLIIIIIIIIIIIIIIIIIIISSSSSSSSSSSSSSSSSSSSTTTTTTTTTTTTTTTTTTTT */
-/* CLASSSSSSSSSSSSSS-------------LLLLLLLLLLLLLIIIIIIIIIIIIIIIIIIISSSSSSSSSSSSSSSSSSSSTTTTTTTTTTTTTTTTTTTT */
+
 
 /* Segregation */
 .year {
@@ -1840,11 +1505,7 @@ form {
 }
 .course {
   z-index: 10;
-}
-/* NAAAAAAAAAAAAAAAAAAAAAAAAAMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE */
-/* NAAAAAAAAAAAAAAAAAAAAAAAAAMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE */
-/* NAAAAAAAAAAAAAAAAAAAAAAAAAMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE */
-/* NAAAAAAAAAAAAAAAAAAAAAAAAAMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE */
+}/* NAME */
 .box-name,
 .box-email {
   user-select: none;
@@ -1921,8 +1582,6 @@ form {
   font-size: 14px;
 }
 
-/* DROPPPPPPPPPDDDDDDDDDDDDDDOOOOOOOOOOOOOOWWWWWWWWWWWNNNNNNNNNNNNNNNNNNNNNN 2.0000000000000000000000000000000000000000000000000000000 */
-/* DROPPPPPPPPPDDDDDDDDDDDDDDOOOOOOOOOOOOOOWWWWWWWWWWWNNNNNNNNNNNNNNNNNNNNNN 2.0000000000000000000000000000000000000000000000000000000 */
 /* DROPPPPPPPPPDDDDDDDDDDDDDDOOOOOOOOOOOOOOWWWWWWWWWWWNNNNNNNNNNNNNNNNNNNNNN 2.0000000000000000000000000000000000000000000000000000000 */
 
 .wrapper-dropdown {
@@ -2066,17 +1725,7 @@ svg {
   padding-bottom: 30px;
   border: #494c52 1px solid;
 }
-/* USPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP */
-/* USPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP */
-/* USPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP */
-/* USPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP */
-/* USPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP */
-/* USPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP */
-/* USPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP */
-/* USPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP */
-/* USPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP */
-/* USPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP */
-/* USPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP */
+
 /* USPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP */
 
 .box {

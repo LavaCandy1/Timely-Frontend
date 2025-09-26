@@ -20,8 +20,8 @@
         <ng-container *ngIf="getSlotForDayAndTime(day, time) as slot">
           <div class="class-card" [ngClass]="slot.slotType.toLowerCase()">
             <span>{{ slot.courseCode }}</span>
-            <span>{{ slot.instructor }}</span>
             <span>{{ slot.location }}</span>
+            <span>{{ slot.instructor }}</span>
           </div>
         </ng-container>
       </div>

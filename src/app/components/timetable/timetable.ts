@@ -24,7 +24,6 @@ export class TimeTableComponent implements OnInit {
     '15:30',
     '16:30',
     '17:30',
-    '18:30',
   ];
 
   constructor(private timetableService: TimetableService) {}

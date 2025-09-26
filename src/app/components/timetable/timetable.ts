@@ -14,16 +14,17 @@ export class TimeTableComponent implements OnInit {
   public days: string[] = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
   public lunchLetters: string[] = ['L', 'U', 'N', 'C', 'H', ' '];
   public times: string[] = [
-    '0830',
-    '0930',
-    '1030',
-    '1130',
-    '1230',
-    '1330',
-    '1430',
-    '1530',
-    '1630',
-    '1730',
+    '08:30',
+    '09:30',
+    '10:30',
+    '11:30',
+    '12:30',
+    '13:30',
+    '14:30',
+    '15:30',
+    '16:30',
+    '17:30',
+    '18:30',
   ];
 
   constructor(private timetableService: TimetableService) {}
@@ -42,6 +43,7 @@ export class TimeTableComponent implements OnInit {
   }
 
   getSlotForDayAndTime(day: string, time: string): ClassSlot | undefined {
+    // console.log(`Looking for slot on ${day} at ${time}`);
     const fullDay = normalizeDay(day);
     const fullTime = normalizeTime(time);
     return this.allClassSlots.find(
@@ -64,9 +66,9 @@ function normalizeDay(dayAbbr: string): string {
 }
 
 function normalizeTime(time: string): string {
-  if (time.length === 4) {
-    console.log(`${time.slice(0, 2)}:${time.slice(2, 4)}:00`);
-    return `${time.slice(0, 2)}:${time.slice(2, 4)}:00`;
+  if (time.length === 5) {
+    // console.log(`${time.slice(0, 5)}:00`);
+    return `${time}:00`;
   }
   return time;
 }

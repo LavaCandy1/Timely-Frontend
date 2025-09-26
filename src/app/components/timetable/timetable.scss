@@ -14,7 +14,7 @@
 
   .grid {
     display: grid;
-    grid-template-columns: 60px repeat(7, 1fr);
+    grid-template-columns: 60px repeat(6, 1fr);
     // border-collapse: collapse;
     // position: relative;
   }
@@ -35,21 +35,62 @@
     // margin-top: 2rem;
     text-align: top;
     padding-right: 8px;
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     color: #6c5e49;
   }
 
   .day-cell {
     padding: 6px;
+    font-size: 1.5rem;
+    font-weight: 1;
     text-align: center;
   }
 
   .cell {
     border-top: 0.1rem solid #cdbba2;
-    border-: 0.1rem solid #cdbba2;
+    // border-left: 0.1rem solid #cdbba2;
+    font-weight: 1;
     min-height: 40px;
-    height: 4rem;
+    height: 5rem;
     // margin-top: 2rem;
+  }
+
+  .class-card {
+    display: flex;
+    flex-direction: column;
+    background: #1b2b45;
+    color: #000000;
+    font-size: 0.9rem;
+    padding: 4px;
+    border: 1px solid #cdbba2;
+    border-radius: 10px;
+    border-radius: 4px;
+    text-align: center;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+    height: 70%;
+    margin: 5%;
+    margin-top: 3%;
+
+    &:hover {
+      background: #2e3c5a;
+    }
+
+    &.lecture {
+      background: #dadfe9;
+    }
+
+    &.lab {
+      background: #25d79f;
+      min-height: 7.8rem; // span two rows visually
+      z-index: 200;
+    }
+
+    &.tutorial {
+      background: #fbdbd4;
+      border-color: #e09d8e;
+    }
   }
 
   /* Lunch Row Overlay */

@@ -9,22 +9,22 @@
     <!-- Days Row -->
     <div class="row header-row">
       <div class="time-cell"></div>
-      <div class="day-cell" *ngFor="let day of days">{{ day }}</div>
+      <div class="day-cell" *ngFor="let day of days">{{ day | slice : 0 : 3 | uppercase }}</div>
     </div>
 
     <!-- Time Rows -->
-    <div class="row" *ngFor="let time of times">
+    <div class="row" *ngFor="let time of times; let i = index">
       <div class="time-cell">{{ time }}</div>
-      <div class="cell" *ngFor="let day of days"></div>
-    </div>
 
-    <!-- Lunch Row Overlay -->
-    <!-- <div class="lunch-row">
-      <span>L</span>
-      <span>U</span>
-      <span>N</span>
-      <span>C</span>
-      <span>H</span> -->
-    <!-- </div> -->
+      <div class="cell" *ngFor="let day of days">
+        <ng-container *ngIf="getSlotForDayAndTime(day, time) as slot">
+          <div class="class-card" [ngClass]="slot.slotType.toLowerCase()">
+            <span>{{ slot.courseCode }}</span>
+            <span>{{ slot.instructor }}</span>
+            <span>{{ slot.location }}</span>
+          </div>
+        </ng-container>
+      </div>
+    </div>
   </div>
 </div>

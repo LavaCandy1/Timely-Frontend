@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddSlotForm } from './add-slot-form';
+import { Timetable } from './timetable';
 
-describe('AddSlotForm', () => {
-  let component: AddSlotForm;
-  let fixture: ComponentFixture<AddSlotForm>;
+describe('Timetable', () => {
+  let component: Timetable;
+  let fixture: ComponentFixture<Timetable>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddSlotForm]
+      imports: [Timetable]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AddSlotForm);
+    fixture = TestBed.createComponent(Timetable);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

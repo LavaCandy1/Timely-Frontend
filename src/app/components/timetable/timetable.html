@@ -1,0 +1,14 @@
+<div class="timetable-grid">
+  <div class="day-header" *ngFor="let day of days">{{ day }}</div>
+
+  <div class="day-column" *ngFor="let day of days; let i = index">
+    <div class="time-slot-card" *ngFor="let slot of getSlotsForDay(i)">
+      <h4>{{ slot.courseCode }}</h4>
+      <p>{{ slot.startTime }} - {{ slot.endTime }}</p>
+      <p>
+        <small>{{ slot.instructor }}</small>
+      </p>
+      <!-- <a href="{{ slot.meetingLink }}" class="join-button">Join</a> -->
+    </div>
+  </div>
+</div>

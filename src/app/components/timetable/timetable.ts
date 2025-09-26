@@ -1,29 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-// import { TimetableService } from '../../services/timetable.service';
-import { TimetableService } from '../../services/timetable';
-// import { ClassSlot } from '../../models/timeslot.model';
-import { ClassSlot } from '../../models/class-slot.model';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-timetable',
   templateUrl: './timetable.html',
+  styleUrls: ['./timetable.scss'],
   imports: [CommonModule],
 })
-export class TimeTableComponent implements OnInit {
-  public days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-  public timeSlots: ClassSlot[] = [];
+export class TimeTableComponent {
+  times: string[] = [
+    '0830',
+    '0930',
+    '1030',
+    '1130',
+    '1230',
+    '1330',
+    '1430',
+    '1530',
+    '1630',
+    '1730',
+  ];
 
-  constructor(private timetableService: TimetableService) {}
-
-  ngOnInit(): void {
-    this.timetableService.getWeekTimetable().subscribe((data) => {
-      this.timeSlots = data;
-    });
-  }
-
-  // Helper function to get classes for a specific day
-  getSlotsForDay(dayIndex: number): ClassSlot[] {
-    return this.timeSlots.filter((slot) => Number(slot.dayOfWeek) === dayIndex + 1);
-  }
+  days: string[] = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  lunchLetters: string[] = ['L', 'U', 'N', 'C', 'H', ' '];
 }

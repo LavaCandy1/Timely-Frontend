@@ -1,14 +1,30 @@
-<div class="timetable-grid">
-  <div class="day-header" *ngFor="let day of days">{{ day }}</div>
+<div class="timetable">
+  <!-- Header -->
+  <div class="header">
+    <h2>September 2025</h2>
+  </div>
 
-  <div class="day-column" *ngFor="let day of days; let i = index">
-    <div class="time-slot-card" *ngFor="let slot of getSlotsForDay(i)">
-      <h4>{{ slot.courseCode }}</h4>
-      <p>{{ slot.startTime }} - {{ slot.endTime }}</p>
-      <p>
-        <small>{{ slot.instructor }}</small>
-      </p>
-      <!-- <a href="{{ slot.meetingLink }}" class="join-button">Join</a> -->
+  <!-- Table -->
+  <div class="grid">
+    <!-- Days Row -->
+    <div class="row header-row">
+      <div class="time-cell"></div>
+      <div class="day-cell" *ngFor="let day of days">{{ day }}</div>
     </div>
+
+    <!-- Time Rows -->
+    <div class="row" *ngFor="let time of times">
+      <div class="time-cell">{{ time }}</div>
+      <div class="cell" *ngFor="let day of days"></div>
+    </div>
+
+    <!-- Lunch Row Overlay -->
+    <!-- <div class="lunch-row">
+      <span>L</span>
+      <span>U</span>
+      <span>N</span>
+      <span>C</span>
+      <span>H</span> -->
+    <!-- </div> -->
   </div>
 </div>

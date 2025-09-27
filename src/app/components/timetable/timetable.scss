@@ -87,7 +87,7 @@
     &.lab {
       background: #daeae5;
       border-color: #77c6ad;
-      min-height: 7.3rem;
+      // min-height: 7.3rem;
     }
 
     &.tutorial {
@@ -97,6 +97,7 @@
     &:hover {
       transform: scale(1.1);
       box-shadow: 0 0 10px rgba(0, 0, 0.02);
+      z-index: 10;
     }
   }
 }

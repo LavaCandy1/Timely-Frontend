@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { TimetableService } from '../../services/timetable';
+import { TimetableService } from '../../services/timetable/timetable';
 import { ClassSlot } from '../../models/class-slot.model';
 
 @Component({

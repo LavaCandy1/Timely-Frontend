@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,32 @@ export class Auth {
   private authUrl = environment.apiUrl + '/auth';
 
   constructor(private http: HttpClient) {}
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  decodeToken(): any {
+    const token = this.getToken();
+    if (!token) {      
+      console.error('No token found');
+      return null;
+    }
+
+    try {
+      return jwtDecode(token);
+    } catch (e) {
+      console.error('Invalid token:', e);
+      return null;
+    }
+  }
+
+  getRole(): any {
+    const decoded = this.decodeToken();
+    return decoded ? decoded.roles : null;
+  }
+
+
   login(credentials: any) {
     return this.http.post(`${this.authUrl}/login`, credentials).pipe(
       tap((response: any) => {
@@ -32,13 +59,20 @@ export class Auth {
     );
   }
   signup(userInfo: { name: string; email: string; password: string }) {
+    console.log(userInfo);
     return this.http.post(`${this.authUrl}/register`, userInfo);
   }
+  
   logout() {
     localStorage.removeItem('token');
   }
   isLoggedIn(): boolean {
+    if (typeof localStorage === 'undefined') {
+      return false;
+    }
+
     const token = localStorage.getItem('token');
+    console.log('here');
     if (!token) return false;
 
     try {

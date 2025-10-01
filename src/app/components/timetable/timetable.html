@@ -1,7 +1,7 @@
 <div class="timetable">
   <!-- Header -->
   <div class="header">
-    <h2>September 2025</h2>
+    <h2>September 2025 {{ userRole }}</h2>
   </div>
 
   <!-- Table -->
@@ -17,13 +17,41 @@
       <div class="time-cell">{{ time }}</div>
 
       <div class="cell" *ngFor="let day of days">
-        <ng-container *ngIf="getSlotForDayAndTime(day, time) as slot">
-          <div class="class-card" [ngClass]="slot.slotType.toLowerCase()">
+        @if (userRole === "STUDENT") {
+        <ng-container *ngIf="getSlotForDayAndTimeStudent(day, time) as slot">
+          <div
+            class="class-card"
+            [ngClass]="slot.slotType.toLowerCase()"
+            [ngClass]="userRole.toLowerCase()"
+          >
             <span>{{ slot.courseCode }}</span>
             <span>{{ slot.location }}</span>
             <span>{{ slot.instructor }}</span>
           </div>
         </ng-container>
+        } @else if (userRole === "TEACHER") {
+        <ng-container *ngIf="getSlotForDayAndTimeTeacher(day, time) as slot">
+          <div
+            class="class-card"
+            [class]="[slot.slotType.toLowerCase(), userRole.toLowerCase()]"
+            (mouseenter)="onMouseEnter(slot)"
+            (mouseleave)="onMouseLeave()"
+          >
+            <span>{{ slot.courseCode }}</span>
+            <span>{{ slot.location }}</span>
+            <!-- batches -->
+            @if (hoveredSlot === slot) {
+            <br />
+            <span class="batches">{{ slot.batches.join(', ') }}</span>
+            <!-- cancel class button -->
+            <div class="buttons">
+              <span class="cancel-btn">Cancel Class</span>
+              <span class="reschedule-btn">Reschedule</span>
+            </div>
+            }
+          </div>
+        </ng-container>
+        }
       </div>
     </div>
   </div>

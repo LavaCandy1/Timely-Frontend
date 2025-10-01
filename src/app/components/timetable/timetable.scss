@@ -73,7 +73,7 @@
     min-height: 3rem;
 
     cursor: pointer;
-    transition: 0.2s ease;
+    transition: 0.5s ease;
     margin: 1%;
     // margin-top: 1%;
     z-index: 1;
@@ -98,6 +98,81 @@
       transform: scale(1.1);
       box-shadow: 0 0 10px rgba(0, 0, 0.02);
       z-index: 10;
+      .batches {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+    &.teacher:hover {
+      // transform: scale(4);
+
+      transition: width 2s height 2s;
+      z-index: 10;
+      width: max; // slightly bigger than min
+      height: 7rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0.02);
+
+      .batches {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+    .batches {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .buttons {
+      margin-top: 0.3rem;
+      display: flex;
+
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      
+      .cancel-btn {
+        transform: scale(0.8);
+        padding: 0.3rem 0.6rem;
+        border-radius: 50px;
+        border: 0.05rem solid #9a1c1c;
+
+        // Color and Font
+        border-color: #9a1c1c;
+        color: black;
+
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+          background-color: #e04343;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          color: white;
+          font-weight: 600;
+          transform: translateY(-2px);
+        }
+      }
+      .reschedule-btn {
+          transform: scale(0.8);
+          padding: 0.3rem 0.6rem;
+          border-radius: 50px;
+          border: 0.05rem solid #9a1c1c;
+
+          // Color and Font
+          border-color: #9a1c1c;
+          color: black;
+
+          cursor: pointer;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          transition: all 0.2s ease-in-out;
+
+          &:hover {
+            background-color: #e04343;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: white;
+            font-weight: 600;
+            transform: translateY(-2px);
+          }
+        }
     }
   }
 }

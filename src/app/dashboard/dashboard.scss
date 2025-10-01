@@ -1,0 +1,17 @@
+.dashboard-layout {
+  display: flex;
+  height: 100vh;
+  background-color: #e1e1e1; /* A light background for the main content area */
+}
+
+.sidebar {
+  flex: 0 0 5.5%; /* Sidebar with a fixed width of 250px */
+}
+
+.main-content {
+  flex-grow: 1; /* Main content takes the remaining space */
+  padding: 1rem;
+  padding-top: 0.9rem;
+  padding-right: 2rem;
+  overflow-y: auto; /* Allows scrolling if content is long */
+}

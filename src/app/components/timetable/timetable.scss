@@ -118,8 +118,31 @@
       }
     }
     .batches {
-      opacity: 0;
-      visibility: hidden;
+      display: flex;
+      justify-content: center;
+      gap: 0.25rem;
+      position: relative;
+      &:hover {
+        .all-batches {
+          display: block;
+          top: -100%;
+          left: 203%;
+        }
+      }
+    }
+    .all-batches{
+      display: none;
+      position: absolute;
+      width: 20rem;
+      transform: translateX(-50%);
+      background: #eaeaea;
+      color: #777;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.25rem;
+      font-size: 0.85rem;
+      // white-space: nowrap;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
+      z-index: 1000;
     }
     .buttons {
       margin-top: 0.3rem;

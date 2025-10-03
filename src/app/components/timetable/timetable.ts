@@ -11,16 +11,18 @@ import { TeacherSlot } from '../../models/teacherSlot.model';
   imports: [CommonModule],
 })
 export class TimeTableComponent implements OnInit {
-
   @Input() userRole: string | null = null;
   hoveredSlot: any = null;
+  year = new Date().getFullYear();
 
-  onMouseEnter(slot : any){
-    this.hoveredSlot = slot;    
+  today = new Date();
+
+  onMouseEnter(slot: any) {
+    this.hoveredSlot = slot;
   }
 
-  onMouseLeave(){
-    this.hoveredSlot = null;    
+  onMouseLeave() {
+    this.hoveredSlot = null;
   }
 
   public allClassSlots: ClassSlot[] = [];
@@ -43,14 +45,15 @@ export class TimeTableComponent implements OnInit {
   constructor(private timetableService: TimetableService) {}
 
   ngOnInit(): void {
-    this.timetableService.getWeekTimetableStudent().subscribe((data) => {
-      this.allClassSlots = data;
-      // console.log('Fetched Class Slots:', this.allClassSlots);
-    });
-    this.timetableService.getWeekTimetableTeacher().subscribe((data) => {
-      this.allClassSlotsTeacher = data;
-      // console.log('Fetched Teacher Slots:', this.allClassSlotsTeacher);
-    });
+    if (this.userRole === 'TEACHER') {
+      this.timetableService.getWeekTimetableTeacher().subscribe((data) => {
+        this.allClassSlotsTeacher = data;
+      });
+    } else if (this.userRole === 'STUDENT') {
+      this.timetableService.getWeekTimetableStudent().subscribe((data) => {
+        this.allClassSlots = data;
+      });
+    }
   }
   getSlotsForDay(day: string): ClassSlot[] {
     const fullDay = normalizeDay(day);

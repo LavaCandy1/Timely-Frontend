@@ -8,8 +8,8 @@
     <div class="divider"></div>
 
     <div class="sidebar-item text-item">
-      <span>Day</span>
-      <span>Date</span>
+      <span>{{ today | date:'EEE' }}</span>
+      <span>{{ today | date:'dd'}}/{{ today | date:'MM'}}</span>
     </div>
 
     <div class="divider"></div>

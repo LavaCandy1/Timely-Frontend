@@ -26,7 +26,7 @@ export class TimetableService {
     return this.http.get<ClassSlot[]>(url, { headers });
   }
 
-    getWeekTimetableTeacher(): Observable<TeacherSlot[]> {
+  getWeekTimetableTeacher(): Observable<TeacherSlot[]> {
     const token = localStorage.getItem('token');
 
     const headers = {
@@ -41,6 +41,19 @@ export class TimetableService {
       map(dtos =>
         dtos.map(mapToTeacherSlot))
     );
+  }
+
+  cancelClass(slot: TeacherSlot): Observable<void> {
+    const token = localStorage.getItem('token');
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    const url = `${this.apiUrl}/timetable/cancelClass`;
+    console.log("Cancelling class");
+    console.log(slot);
+
+    return this.http.post<void>(url, slot, { headers });
   }
 }
 

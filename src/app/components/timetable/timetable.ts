@@ -11,6 +11,7 @@ import { TeacherSlot } from '../../models/teacherSlot.model';
   imports: [CommonModule],
 })
 export class TimeTableComponent implements OnInit {
+
   @Input() userRole: string | null = null;
   hoveredSlot: any = null;
   year = new Date().getFullYear();
@@ -48,6 +49,7 @@ export class TimeTableComponent implements OnInit {
     if (this.userRole === 'TEACHER') {
       this.timetableService.getWeekTimetableTeacher().subscribe((data) => {
         this.allClassSlotsTeacher = data;
+        console.log(this.allClassSlotsTeacher);
       });
     } else if (this.userRole === 'STUDENT') {
       this.timetableService.getWeekTimetableStudent().subscribe((data) => {
@@ -55,12 +57,14 @@ export class TimeTableComponent implements OnInit {
       });
     }
   }
-  getSlotsForDay(day: string): ClassSlot[] {
-    const fullDay = normalizeDay(day);
-    return this.allClassSlots
-      .filter((slot) => slot.dayOfWeek === fullDay)
-      .sort((a, b) => a.startTime.localeCompare(b.startTime));
-  }
+
+  // used for dummy data
+  // getSlotsForDay(day: string): ClassSlot[] {
+  //   const fullDay = normalizeDay(day);
+  //   return this.allClassSlots
+  //     .filter((slot) => slot.dayOfWeek === fullDay)
+  //     .sort((a, b) => a.startTime.localeCompare(b.startTime));
+  // }
 
   getSlotForDayAndTimeStudent(day: string, time: string): ClassSlot | undefined {
     const fullDay = normalizeDay(day);
@@ -73,9 +77,50 @@ export class TimeTableComponent implements OnInit {
   getSlotForDayAndTimeTeacher(day: string, time: string): TeacherSlot | undefined {
     const fullDay = normalizeDay(day);
     const fullTime = normalizeTime(time);
+
     return this.allClassSlotsTeacher.find(
       (slot) => slot.dayOfWeek === fullDay && slot.startTime === fullTime
     );
+  }
+  isCancelled(slot: ClassSlot | TeacherSlot): boolean {
+    if (slot.cancelledDate!=null && slot.cancelledDate > new Date().toISOString().split('T')[0]) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  cancel(slot: TeacherSlot): void {
+    
+    const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const todayIndex = daysOfWeek.indexOf(daysOfWeek[this.today.getDay() === 0 ? 6 : this.today.getDay() - 1]);
+    const slotDayIndex = daysOfWeek.indexOf(slot.dayOfWeek);
+    let daysToAdd = slotDayIndex - todayIndex;
+    if (daysToAdd < 0) {
+      daysToAdd += 7;
+    }
+    const cancelledDate = new Date(this.today);
+    cancelledDate.setDate(this.today.getDate() + daysToAdd + 1);
+    
+    slot.cancelledDate = cancelledDate.toISOString().split('T')[0];
+
+    this.timetableService.cancelClass(slot).subscribe(response => { 
+      console.log('Class cancelled successfully', response);
+      
+    }, error => {
+      console.error('Error cancelling class', error);
+    });
+  }
+
+  reschedule(slot: TeacherSlot): void {
+
+    slot.cancelledDate = null;
+    this.timetableService.cancelClass(slot).subscribe(response => { 
+      console.log('Class cancelled successfully', response);
+      
+    }, error => {
+      console.error('Error cancelling class', error);
+    });
   }
 }
 

@@ -14,4 +14,5 @@ export interface ClassSlot {
   batch: string;
   group: string;
   year: string;
+  cancelledDate: string | null;
 }

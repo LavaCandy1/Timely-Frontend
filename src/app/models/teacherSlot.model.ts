@@ -7,6 +7,7 @@ export interface TeacherSlot {
   location: string;   // e.g., "102-N-LH"
   slotType: SlotType;
   batches: string[];  // array of batch codes
+  cancelledDate: string | null;
 }
 
 // Optional: a helper function to convert comma-separated batches to an array
@@ -17,6 +18,7 @@ export function mapToTeacherSlot(dto: any): TeacherSlot {
     dayOfWeek: dto.dayOfWeek,
     location: dto.location,
     slotType: dto.slotType,
-    batches: dto.batches ? dto.batches.split(',') : []
+    batches: dto.batches ? dto.batches.split(',') : [],
+    cancelledDate: dto.cancelledDate,
   };
 }

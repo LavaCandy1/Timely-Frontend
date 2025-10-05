@@ -5,6 +5,11 @@
   width: 100%;
 
   .header {
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 0.1rem;
 
     h2 {
@@ -13,6 +18,21 @@
       font-size: 2.4rem;
       color: #1b2b45;
       font-weight: 400;
+    }
+
+    .extra {
+      background-color: #987749;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        // background-color: #dba765; // Darker shade on hover
+        background-color: #dba765; // Darker shade on hover
+      }
     }
   }
 
@@ -117,6 +137,14 @@
         visibility: visible;
       }
     }
+    &.cancelled {
+      background: #f5c6c6;
+      border-color: #e57373;
+      color: #7a1c1c;
+      text-decoration: line-through;
+    }
+
+
     .batches {
       display: flex;
       justify-content: center;

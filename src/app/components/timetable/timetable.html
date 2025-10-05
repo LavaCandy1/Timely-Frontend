@@ -2,7 +2,11 @@
   <!-- Header -->
   <div class="header">
     <h2>{{ today | date:'MMMM' }} {{year}}</h2>
+    @if (userRole==='TEACHER') {
+    <div class="extra">+ Extra Class</div>
+    }
   </div>
+
 
   <!-- Table -->
   <div class="grid">
@@ -20,7 +24,11 @@
         @if (userRole === "STUDENT") {
         <ng-container *ngIf="getSlotForDayAndTimeStudent(day, time) as slot">
 
-          <div class="class-card" [ngClass]="slot.slotType.toLowerCase()">
+          <div 
+            class="class-card" 
+            [class]="[slot.slotType.toLowerCase(), userRole.toLowerCase()].join(' ')"
+            [ngClass]='{"cancelled": isCancelled(slot)}'
+          >
             <span>{{ slot.courseCode }}</span>
             <span>{{ slot.location }}</span>
             <span>{{ slot.instructor }}</span>
@@ -31,7 +39,8 @@
           
           <div
             class="class-card"
-            [class]="[slot.slotType.toLowerCase(), userRole.toLowerCase()]"
+            [class]="[slot.slotType.toLowerCase(), userRole.toLowerCase()].join(' ')"
+            [ngClass]='{"cancelled": isCancelled(slot)}'
             (mouseenter)="onMouseEnter(slot)"
             (mouseleave)="onMouseLeave()"
           >
@@ -61,8 +70,11 @@
            
             <!-- cancel class button -->
             <div class="buttons">
-              <span class="cancel-btn">Cancel Class</span>
-              <span class="reschedule-btn">Reschedule</span>
+              @if (isCancelled(slot)=== false) {
+              <span class="cancel-btn" (click)="cancel(slot)">Cancel Class</span>
+              } @else {
+              <span class="reschedule-btn " (click)="reschedule(slot)">Reschedule</span>
+              }
             </div>
             }
           </div>

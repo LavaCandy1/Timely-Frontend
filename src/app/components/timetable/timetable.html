@@ -23,7 +23,6 @@
       <div class="cell" *ngFor="let day of days">
         @if (userRole === "STUDENT") {
         <ng-container *ngIf="getSlotForDayAndTimeStudent(day, time) as slot">
-
           <div 
             class="class-card" 
             [class]="[slot.slotType.toLowerCase(), userRole.toLowerCase()].join(' ')"
@@ -35,20 +34,20 @@
           </div>
         </ng-container>
         } @else if (userRole === "TEACHER") {
-        <ng-container *ngIf="getSlotForDayAndTimeTeacher(day, time) as slot">
-          
+        <ng-container *ngIf="getSlotForDayAndTimeTeacher(day, time) as slots">
+           @for (slot of slots; track slot; let i = $index) {
           <div
             class="class-card"
             [class]="[slot.slotType.toLowerCase(), userRole.toLowerCase()].join(' ')"
             [ngClass]='{"cancelled": isCancelled(slot)}'
             (mouseenter)="onMouseEnter(slot)"
             (mouseleave)="onMouseLeave()"
+            [style.transform]="'translate(' + (i * 20) + 'px, ' + (i * 25) + 'px)'"
+            [style.zIndex]="i+1"
           >
             <span>{{ slot.courseCode }}</span>
             <span>{{ slot.location }}</span>
             <!-- batches -->
-            @if (hoveredSlot === slot) {
-            <br />
             <div class="batches">
               @if (slot.batches.length > 0) {
                 <span >{{ slot.batches[0] }}, </span>
@@ -67,7 +66,7 @@
                 <span class="batch1">{{ slot.batches.join(', ') }}</span>
               </div>
             </div>
-           
+           @if (hoveredSlot === slot) {
             <!-- cancel class button -->
             <div class="buttons">
               @if (isCancelled(slot)=== false) {
@@ -78,6 +77,7 @@
             </div>
             }
           </div>
+        }
         </ng-container>
         }
       </div>

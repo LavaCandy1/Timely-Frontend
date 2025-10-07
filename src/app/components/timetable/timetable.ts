@@ -74,11 +74,11 @@ export class TimeTableComponent implements OnInit {
     );
   }
 
-  getSlotForDayAndTimeTeacher(day: string, time: string): TeacherSlot | undefined {
+  getSlotForDayAndTimeTeacher(day: string, time: string): TeacherSlot[] | undefined {
     const fullDay = normalizeDay(day);
     const fullTime = normalizeTime(time);
 
-    return this.allClassSlotsTeacher.find(
+    return this.allClassSlotsTeacher.filter(
       (slot) => slot.dayOfWeek === fullDay && slot.startTime === fullTime
     );
   }

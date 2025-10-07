@@ -29,15 +29,14 @@
       transition: background-color 0.3s ease;
 
       &:hover {
-        // background-color: #dba765; // Darker shade on hover
-        background-color: #dba765; // Darker shade on hover
+        background-color: #dba765;
       }
     }
   }
 
   .grid {
     display: grid;
-    grid-template-columns: 4rem repeat(6, 1fr); // instead of 60px
+    grid-template-columns: 4rem repeat(6, 1fr);
   }
 
   .row {
@@ -88,7 +87,7 @@
   .class-card {
     display: flex;
     flex-direction: column;
-    // justify-content: center;
+    justify-content: center;
     color: #000000;
     font-size: 0.8rem;
     padding: 0.25rem;
@@ -102,7 +101,6 @@
     cursor: pointer;
     transition: 0.5s ease;
     margin: 1%;
-    // margin-top: 1%;
     z-index: 1;
     position: absolute;
     transform: translate(
@@ -110,7 +108,6 @@
       calc(var(--i) * var(--y-multiplier) * 1px)
     );
 
-    /* Add a smooth transition for the transform property */
     transition: transform 0.3s ease-out;
 
     &.lecture {
@@ -121,7 +118,6 @@
     &.lab {
       background: #daeae5;
       border-color: #77c6ad;
-      // min-height: 7.3rem;
     }
 
     &.tutorial {
@@ -138,16 +134,15 @@
       }
     }
     &.teacher:hover {
-      // transform: scale(4);
       transform: translate(
-        calc(var(--i) * var(--x-multiplier) * 1px),
-        calc(var(--i) * var(--y-multiplier) * 1px)
-      )
-      scale(1.1);
+          calc(var(--i) * var(--x-multiplier) * 1px),
+          calc(var(--i) * var(--y-multiplier) * 1px)
+        )
+        scale(1.1);
 
       transition: width 2s height 2s;
       z-index: 10 !important;
-      width: max; // slightly bigger than min
+      width: max;
       // height: 7rem;
       box-shadow: 0 0 10px rgba(0, 0, 0.02);
 
@@ -186,7 +181,6 @@
       padding: 0.5rem 0.75rem;
       border-radius: 0.25rem;
       font-size: 0.85rem;
-      // white-space: nowrap;
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
       z-index: 1000;
     }
@@ -204,7 +198,6 @@
         border-radius: 50px;
         border: 0.05rem solid #9a1c1c;
 
-        // Color and Font
         border-color: #9a1c1c;
         color: black;
 
@@ -226,7 +219,6 @@
         border-radius: 50px;
         border: 0.05rem solid #9a1c1c;
 
-        // Color and Font
         border-color: #9a1c1c;
         color: black;
 

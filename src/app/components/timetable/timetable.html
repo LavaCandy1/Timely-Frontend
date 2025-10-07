@@ -42,7 +42,7 @@
             [ngClass]='{"cancelled": isCancelled(slot)}'
             (mouseenter)="onMouseEnter(slot)"
             (mouseleave)="onMouseLeave()"
-            [style.transform]="'translate(' + (i * 20) + 'px, ' + (i * 25) + 'px)'"
+            [style.--i]="i"
             [style.zIndex]="i+1"
           >
             <span>{{ slot.courseCode }}</span>

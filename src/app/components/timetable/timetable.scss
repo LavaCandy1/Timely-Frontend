@@ -5,7 +5,6 @@
   width: 100%;
 
   .header {
-    
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -77,6 +76,13 @@
     height: 4rem;
     margin-top: 1.5%;
     position: relative;
+    --x-multiplier: 6;
+    --y-multiplier: 6;
+
+    &:hover {
+      --x-multiplier: 20;
+      --y-multiplier: 25;
+    }
   }
 
   .class-card {
@@ -99,6 +105,13 @@
     // margin-top: 1%;
     z-index: 1;
     position: absolute;
+    transform: translate(
+      calc(var(--i) * var(--x-multiplier) * 1px),
+      calc(var(--i) * var(--y-multiplier) * 1px)
+    );
+
+    /* Add a smooth transition for the transform property */
+    transition: transform 0.3s ease-out;
 
     &.lecture {
       background: #dadfe9;
@@ -126,6 +139,11 @@
     }
     &.teacher:hover {
       // transform: scale(4);
+      transform: translate(
+        calc(var(--i) * var(--x-multiplier) * 1px),
+        calc(var(--i) * var(--y-multiplier) * 1px)
+      )
+      scale(1.1);
 
       transition: width 2s height 2s;
       z-index: 10 !important;
@@ -145,7 +163,6 @@
       text-decoration: line-through;
     }
 
-
     .batches {
       display: flex;
       justify-content: center;
@@ -159,7 +176,7 @@
         }
       }
     }
-    .all-batches{
+    .all-batches {
       display: none;
       position: absolute;
       width: 20rem;
@@ -170,7 +187,7 @@
       border-radius: 0.25rem;
       font-size: 0.85rem;
       // white-space: nowrap;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
       z-index: 1000;
     }
     .buttons {
@@ -180,7 +197,7 @@
       justify-content: center;
       align-items: center;
       gap: 0;
-      
+
       .cancel-btn {
         transform: scale(0.8);
         padding: 0.3rem 0.6rem;
@@ -204,27 +221,27 @@
         }
       }
       .reschedule-btn {
-          transform: scale(0.8);
-          padding: 0.3rem 0.6rem;
-          border-radius: 50px;
-          border: 0.05rem solid #9a1c1c;
+        transform: scale(0.8);
+        padding: 0.3rem 0.6rem;
+        border-radius: 50px;
+        border: 0.05rem solid #9a1c1c;
 
-          // Color and Font
-          border-color: #9a1c1c;
-          color: black;
+        // Color and Font
+        border-color: #9a1c1c;
+        color: black;
 
-          cursor: pointer;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: all 0.2s ease-in-out;
 
-          &:hover {
-            background-color: #e04343;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            color: white;
-            font-weight: 600;
-            transform: translateY(-2px);
-          }
+        &:hover {
+          background-color: #e04343;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          color: white;
+          font-weight: 600;
+          transform: translateY(-2px);
         }
+      }
     }
   }
 }

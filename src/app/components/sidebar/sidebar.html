@@ -1,33 +1,80 @@
 <div class="sidebar">
-  <!-- Top Section -->
-  <div class="upper-items">
-    <div class="sidebar-item">
-      <i class="fas fa-user"></i>
+  <div class="sidebar-main">
+    <!-- Top Section -->
+    <div class="upper-items">
+      <div class="sidebar-item">
+        <i class="fas fa-user"></i>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="sidebar-item text-item">
+        <span>{{ today | date : 'EEE' }}</span>
+        <span>{{ today | date : 'dd' }}/{{ today | date : 'MM' }}</span>
+      </div>
+
+      <div class="divider"></div>
+
+      @if (userRole==="ADMIN") {
+      <div class="sidebar-item" (click)="toggleSearch()">
+        <i class="fas fa-search"></i>
+      </div>
+
+      <div class="divider"></div>
+      }
     </div>
 
-    <div class="divider"></div>
+    <div class="brand">Timely</div>
 
-    <div class="sidebar-item text-item">
-      <span>{{ today | date:'EEE' }}</span>
-      <span>{{ today | date:'dd'}}/{{ today | date:'MM'}}</span>
+    <!-- Bottom Section -->
+    <div class="lower-items">
+      <div class="divider"></div>
+      <div class="sidebar-item">
+        <i class="fas fa-moon"></i>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="sidebar-item" (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+      </div>
     </div>
-
-    <div class="divider"></div>
   </div>
 
-  <div class="brand">Timely</div>
+  <div class="search" [ngClass]="{ open: isOpen && userRole === 'ADMIN' }">
+    @if (isOpen) {
+    <div class="box">
+      <div class="search-form">
+        <h3>Search Timetable</h3>
 
-  <!-- Bottom Section -->
-  <div class="lower-items">
-    <div class="divider"></div>
-    <div class="sidebar-item">
-      <i class="fas fa-moon"></i>
+        <form>
+          <!-- Search type -->
+          <div class="form-group">
+            <label for="searchType">Search by:</label>
+            <select id="searchType" [(ngModel)]="searchType" name="searchType">
+              <option value="teacher">Teacher</option>
+              <option value="batch">Batch</option>
+            </select>
+          </div>
+
+          <!-- Conditional fields -->
+          <div *ngIf="searchType === 'teacher'" class="form-group">
+            <label for="teacherName">Teacher Name:</label>
+            <input id="teacherName" type="text" placeholder="Enter teacher name" />
+          </div>
+
+          <div *ngIf="searchType === 'batch'" class="form-group batch-fields">
+            <label for="year">Year:</label>
+            <input id="year" type="text" placeholder="e.g., 1st, 2nd" />
+
+            <label for="batch">Batch:</label>
+            <input id="batch" type="text" placeholder="e.g., A, B, C" />
+          </div>
+
+          <button type="submit" class="search-btn">Search</button>
+        </form>
+      </div>
     </div>
-
-    <div class="divider"></div>
-
-    <div class="sidebar-item" (click)="logout()">
-      <i class="fas fa-sign-out-alt"></i>
-    </div>
+    }
   </div>
 </div>

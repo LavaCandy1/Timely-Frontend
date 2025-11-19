@@ -1,12 +1,11 @@
 <div class="timetable">
   <!-- Header -->
   <div class="header">
-    <h2>{{ today | date:'MMMM' }} {{year}}</h2>
+    <h2>{{ today | date : 'MMMM' }} {{ year }}</h2>
     @if (userRole==='TEACHER') {
     <div class="extra">+ Extra Class</div>
     }
   </div>
-
 
   <!-- Table -->
   <div class="grid">
@@ -23,10 +22,10 @@
       <div class="cell" *ngFor="let day of days">
         @if (userRole === "STUDENT") {
         <ng-container *ngIf="getSlotForDayAndTimeStudent(day, time) as slot">
-          <div 
-            class="class-card" 
+          <div
+            class="class-card"
             [class]="[slot.slotType.toLowerCase(), userRole.toLowerCase()].join(' ')"
-            [ngClass]='{"cancelled": isCancelled(slot)}'
+            [ngClass]="{ cancelled: isCancelled(slot) }"
           >
             <span>{{ slot.courseCode }}</span>
             <span>{{ slot.location }}</span>
@@ -35,49 +34,81 @@
         </ng-container>
         } @else if (userRole === "TEACHER") {
         <ng-container *ngIf="getSlotForDayAndTimeTeacher(day, time) as slots">
-           @for (slot of slots; track slot; let i = $index) {
+          @for (slot of slots; track slot; let i = $index) {
           <div
             class="class-card"
             [class]="[slot.slotType.toLowerCase(), userRole.toLowerCase()].join(' ')"
-            [ngClass]='{"cancelled": isCancelled(slot)}'
+            [ngClass]="{ cancelled: isCancelled(slot) }"
             (mouseenter)="onMouseEnter(slot)"
             (mouseleave)="onMouseLeave()"
             [style.--i]="i"
-            [style.zIndex]="i+1"
+            [style.zIndex]="i + 1"
           >
             <span>{{ slot.courseCode }}</span>
             <span>{{ slot.location }}</span>
             <!-- batches -->
             <div class="batches">
               @if (slot.batches.length > 0) {
-                <span >{{ slot.batches[0] }}, </span>
-              }
-              @if (slot.batches.length > 2) {
-                <span >{{ slot.batches[1] }}, </span>
-              }
-              @if (slot.batches.length > 3) {
-                <span > ... , </span>
-              }
-              @if (slot.batches.length > 1) {
-                <span >{{ slot.batches[slot.batches.length - 1] }}</span>
-              }
-               @if (slot.batches.length > 2) {}
+              <span>{{ slot.batches[0] }}, </span>
+              } @if (slot.batches.length > 2) {
+              <span>{{ slot.batches[1] }}, </span>
+              } @if (slot.batches.length > 3) {
+              <span> ... , </span>
+              } @if (slot.batches.length > 1) {
+              <span>{{ slot.batches[slot.batches.length - 1] }}</span>
+              } @if (slot.batches.length > 2) {}
               <div class="all-batches">
                 <span class="batch1">{{ slot.batches.join(', ') }}</span>
               </div>
             </div>
-           @if (hoveredSlot === slot) {
+            @if (hoveredSlot === slot) {
             <!-- cancel class button -->
             <div class="buttons">
               @if (isCancelled(slot)=== false) {
               <span class="cancel-btn" (click)="cancel(slot)">Cancel Class</span>
               } @else {
-              <span class="reschedule-btn " (click)="reschedule(slot)">Reschedule</span>
+              <span class="reschedule-btn" (click)="reschedule(slot)">Reschedule</span>
               }
             </div>
             }
           </div>
-        }
+          }
+        </ng-container>
+        } @else if (userRole === "ADMIN") {
+        <ng-container *ngIf="getSlotForDayAndTimeAdmin(day, time) as slots">
+          @for (slot of slots; track slot; let i = $index) {
+          <div
+            class="class-card"
+            [class]="[slot.slotType.toLowerCase(), userRole.toLowerCase()].join(' ')"
+            [ngClass]="{ cancelled: isCancelled(slot) }"
+            [style.--i]="i"
+            [style.zIndex]="i + 1"
+          >
+            <!-- Main Admin Info: Course & Instructor -->
+            <span class="font-bold">{{ slot.courseCode }}</span>
+            <span class="text-sm italic">{{ slot.instructor }}</span>
+            <span class="text-xs">{{ slot.location }}</span>
+
+            <!-- Batches Display (Same logic as Teacher) -->
+            <div class="batches">
+              @if (slot.batches.length > 0) {
+              <span>{{ slot.batches[0] }}</span
+              ><span *ngIf="slot.batches.length > 1">, </span>
+              } @if (slot.batches.length > 2) {
+              <span>{{ slot.batches[1] }}, </span>
+              } @if (slot.batches.length > 3) {
+              <span> ... , </span>
+              } @if (slot.batches.length > 1) {
+              <span>{{ slot.batches[slot.batches.length - 1] }}</span>
+              }
+
+              <!-- Hover/Tooltip for all batches -->
+              <div class="all-batches">
+                <span class="batch1">{{ slot.batches.join(', ') }}</span>
+              </div>
+            </div>
+          </div>
+          }
         </ng-container>
         }
       </div>

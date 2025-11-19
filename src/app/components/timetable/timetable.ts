@@ -3,6 +3,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { TimetableService } from '../../services/timetable/timetable';
 import { ClassSlot } from '../../models/class-slot.model';
 import { TeacherSlot } from '../../models/teacherSlot.model';
+import { AdminSlot } from '../../models/adminSlot.model';
+import { AdminSearchService } from '../../services/timetable/admin-search';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-timetable',
@@ -15,6 +18,7 @@ export class TimeTableComponent implements OnInit {
   @Input() userRole: string | null = null;
   hoveredSlot: any = null;
   year = new Date().getFullYear();
+  searchType: string = '';
 
   today = new Date();
 
@@ -26,11 +30,14 @@ export class TimeTableComponent implements OnInit {
     this.hoveredSlot = null;
   }
 
-  public allClassSlots: ClassSlot[] = [];
-  public allClassSlotsTeacher: TeacherSlot[] = [];
-  public days: string[] = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-  public lunchLetters: string[] = ['L', 'U', 'N', 'C', 'H', ' '];
-  public times: string[] = [
+  private searchSub: Subscription | undefined;
+
+  allClassSlots: ClassSlot[] = [];
+  allClassSlotsTeacher: TeacherSlot[] = [];
+  allClassSlotsAdmin: AdminSlot[] = [];
+  days: string[] = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  lunchLetters: string[] = ['L', 'U', 'N', 'C', 'H', ' '];
+  times: string[] = [
     '08:30',
     '09:30',
     '10:30',
@@ -43,7 +50,9 @@ export class TimeTableComponent implements OnInit {
     '17:30',
   ];
 
-  constructor(private timetableService: TimetableService) {}
+  constructor(private timetableService: TimetableService,
+              private adminSearch : AdminSearchService
+  ) {}
 
   ngOnInit(): void {
     if (this.userRole === 'TEACHER') {
@@ -55,6 +64,38 @@ export class TimeTableComponent implements OnInit {
       this.timetableService.getWeekTimetableStudent().subscribe((data) => {
         this.allClassSlots = data;
       });
+    } else if (this.userRole === 'ADMIN') {
+      // this.timetableService.getWeekTimetableAdmin().subscribe((data) => {
+      //   this.allClassSlotsAdmin = data;
+      //   console.log(this.allClassSlotsAdmin);
+      // });
+      this.subscribeToAdminSearch();
+    }
+  }
+
+  subscribeToAdminSearch() {
+    this.searchSub = this.adminSearch.searchState$.subscribe(state => {
+      
+      // Reset data on new search
+      this.allClassSlotsAdmin = []; 
+
+      if (state.type === 'BATCH') {
+        this.searchType = state.value;
+        this.timetableService.getBatchTimetableForAdmin(state.year || 'Empty' , state.value).subscribe(data => {
+          this.allClassSlotsAdmin = data;
+        });
+      } else if (state.type === 'TEACHER') {
+        this.searchType = state.value;
+        this.timetableService.getWeekTimetableTeacherForAdmin(state.value).subscribe(data => {
+          this.allClassSlotsAdmin = data;
+        });
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.searchSub) {
+      this.searchSub.unsubscribe();
     }
   }
 
@@ -82,6 +123,17 @@ export class TimeTableComponent implements OnInit {
       (slot) => slot.dayOfWeek === fullDay && slot.startTime === fullTime
     );
   }
+
+  getSlotForDayAndTimeAdmin(day: string, time: string): AdminSlot[] | undefined {
+    const fullDay = normalizeDay(day);
+    const fullTime = normalizeTime(time);
+
+    return this.allClassSlotsAdmin.filter(
+      (slot) => slot.dayOfWeek === fullDay && slot.startTime === fullTime
+    );
+  }
+
+
   isCancelled(slot: ClassSlot | TeacherSlot): boolean {
     if (slot.cancelledDate!=null && slot.cancelledDate > new Date().toISOString().split('T')[0]) {
       return true;

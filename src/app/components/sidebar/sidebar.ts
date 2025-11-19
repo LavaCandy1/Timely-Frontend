@@ -12,7 +12,7 @@ import { AdminSearchService } from '../../services/timetable/admin-search';
 })
 export class Sidebar {
   @Input() userRole: string | null = null;
-  public isOpen = true; //change this after making the search functionality
+  public isOpen = false; 
   today = new Date();
   searchType: string = 'null';
 

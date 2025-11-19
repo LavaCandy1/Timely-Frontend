@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { TimetableService } from '../../services/timetable/timetable';
-import { ClassSlot } from '../../models/class-slot.model';
+import { ClassSlot, SlotType } from '../../models/class-slot.model';
 import { TeacherSlot } from '../../models/teacherSlot.model';
 import { AdminSlot } from '../../models/adminSlot.model';
 import { AdminSearchService } from '../../services/timetable/admin-search';
 import { Subscription } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-timetable',
   templateUrl: './timetable.html',
   styleUrls: ['./timetable.scss'],
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
 })
 export class TimeTableComponent implements OnInit {
 
@@ -21,6 +22,20 @@ export class TimeTableComponent implements OnInit {
   searchType: string = '';
 
   today = new Date();
+
+  // needs for add class 
+  isAddClassOpen: boolean = false; 
+  newClass: Partial<ClassSlot> = {
+    courseCode: '',
+    instructor: '',
+    batch: '',
+    year: '',
+    group: '', 
+    slotType: 'LECTURE' as SlotType,
+    dayOfWeek: 'Monday',
+    startTime: '08:30',
+    location: ''
+  };
 
   onMouseEnter(slot: any) {
     this.hoveredSlot = slot;
@@ -36,7 +51,8 @@ export class TimeTableComponent implements OnInit {
   allClassSlotsTeacher: TeacherSlot[] = [];
   allClassSlotsAdmin: AdminSlot[] = [];
   days: string[] = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-  lunchLetters: string[] = ['L', 'U', 'N', 'C', 'H', ' '];
+  fullDays: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  // lunchLetters: string[] = ['L', 'U', 'N', 'C', 'H', ' '];
   times: string[] = [
     '08:30',
     '09:30',
@@ -65,10 +81,6 @@ export class TimeTableComponent implements OnInit {
         this.allClassSlots = data;
       });
     } else if (this.userRole === 'ADMIN') {
-      // this.timetableService.getWeekTimetableAdmin().subscribe((data) => {
-      //   this.allClassSlotsAdmin = data;
-      //   console.log(this.allClassSlotsAdmin);
-      // });
       this.subscribeToAdminSearch();
     }
   }
@@ -174,6 +186,56 @@ export class TimeTableComponent implements OnInit {
       console.error('Error cancelling class', error);
     });
   }
+  
+  delete(slot: AdminSlot): void {
+    this.timetableService.deleteClass(slot).subscribe(response => {
+      console.log('Class deleted successfully', response);
+    }, error => {
+      console.error('Error deleting class', error);
+    });
+  }
+
+  //add class methods
+  toggleAddClassForm() {
+    this.isAddClassOpen = !this.isAddClassOpen;
+    console.log("Add Class Form Toggled:", this.isAddClassOpen);
+  }
+
+  submitAddClass() {
+    console.log("Submitting:", this.newClass);
+
+    // Sending form data directly as requested
+    this.timetableService.addClass(this.newClass).subscribe({
+      next: (res) => {
+        console.log("Class Added Successfully", res);
+        this.isAddClassOpen = false;
+        this.resetForm();
+        
+        // Optional: refresh logic if you want to see the new class immediately
+        if (this.searchType === 'BATCH' && this.newClass.batch && this.newClass.year) {
+           // Trigger a refresh manually if needed, or rely on user to search again
+        }
+      },
+      error: (err) => {
+        console.error("Error adding class", err);
+      }
+    });
+  }
+
+  resetForm() {
+    this.newClass = {
+      courseCode: '',
+      instructor: '',
+      batch: '',
+      year: '',
+      group: '',
+      slotType: 'LECTURE' as SlotType,
+      dayOfWeek: 'Monday',
+      startTime: '08:30',
+      location: ''
+    };
+  }
+
 }
 
 function normalizeDay(dayAbbr: string): string {

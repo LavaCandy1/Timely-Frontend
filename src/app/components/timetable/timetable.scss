@@ -87,12 +87,12 @@
           font-size: 0.9rem;
           width: 100%;
           box-sizing: border-box;
-          transition: border-color 0.2s; // Smooth focus transition
+          transition: border-color 0.2s;
 
           &:focus {
-            outline: none; // Remove default browser outline
+            outline: none;
             border-color: #987749;
-            box-shadow: 0 0 0 3px rgba(152, 119, 73, 0.1); // Subtle focus glow
+            box-shadow: 0 0 0 3px rgba(152, 119, 73, 0.1);
           }
         }
 

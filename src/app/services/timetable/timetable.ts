@@ -90,6 +90,23 @@ export class TimetableService {
         dtos.map(mapToAdminSlot))
     );
   }
+
+  //add class methods 
+  addClass(newClassSlot: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = { Authorization: `Bearer ${token}` };
+    const url = `${this.apiUrl}/timetable/admin/addClass`; 
+    
+    return this.http.post<any>(url, newClassSlot, { headers });
+  }
+
+  deleteClass(slot: AdminSlot): Observable<void> {
+    const token = localStorage.getItem('token');
+    const headers = { Authorization: `Bearer ${token}` };
+    const url = `${this.apiUrl}/timetable/admin/deleteClass`;
+
+    return this.http.post<void>(url, slot, { headers });
+  }
 }
 
 

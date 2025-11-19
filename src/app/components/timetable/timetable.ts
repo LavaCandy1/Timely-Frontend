@@ -80,12 +80,12 @@ export class TimeTableComponent implements OnInit {
       this.allClassSlotsAdmin = []; 
 
       if (state.type === 'BATCH') {
-        this.searchType = state.value;
+        this.searchType = state.type;
         this.timetableService.getBatchTimetableForAdmin(state.year || 'Empty' , state.value).subscribe(data => {
           this.allClassSlotsAdmin = data;
         });
       } else if (state.type === 'TEACHER') {
-        this.searchType = state.value;
+        this.searchType = state.type;
         this.timetableService.getWeekTimetableTeacherForAdmin(state.value).subscribe(data => {
           this.allClassSlotsAdmin = data;
         });

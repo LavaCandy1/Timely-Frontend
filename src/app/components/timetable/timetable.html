@@ -34,7 +34,7 @@
         </ng-container>
         } @else if (userRole === "TEACHER") {
         <ng-container *ngIf="getSlotForDayAndTimeTeacher(day, time) as slots">
-          @for (slot of slots; track slot; let i = $index) {
+          @for (slot of slots; track $index; let i = $index) {
           <div
             class="class-card"
             [class]="[slot.slotType.toLowerCase(), userRole.toLowerCase()].join(' ')"
@@ -75,20 +75,26 @@
           }
         </ng-container>
         } @else if (userRole === "ADMIN") {
+
         <ng-container *ngIf="getSlotForDayAndTimeAdmin(day, time) as slots">
-          @for (slot of slots; track slot; let i = $index) {
+          @for (slot of slots; track $index; let i = $index) {
           <div
             class="class-card"
             [class]="[slot.slotType.toLowerCase(), userRole.toLowerCase()].join(' ')"
             [ngClass]="{ cancelled: isCancelled(slot) }"
+            (mouseenter)="onMouseEnter(slot)"
+            (mouseleave)="onMouseLeave()" 
             [style.--i]="i"
             [style.zIndex]="i + 1"
           >
             <!-- Main Admin Info: Course & Instructor -->
             <span class="font-bold">{{ slot.courseCode }}</span>
+            @if (searchType === "BATCH"){
             <span class="text-sm italic">{{ slot.instructor }}</span>
+            }
             <span class="text-xs">{{ slot.location }}</span>
 
+            @if (searchType === "teacher") {
             <!-- Batches Display (Same logic as Teacher) -->
             <div class="batches">
               @if (slot.batches.length > 0) {
@@ -107,6 +113,18 @@
                 <span class="batch1">{{ slot.batches.join(', ') }}</span>
               </div>
             </div>
+          }
+          @if (hoveredSlot === slot) {
+          <!-- cancel class button -->
+          <div class="buttons">
+            @if (isCancelled(slot)=== false) {
+            <span class="cancel-btn" (click)="cancel(slot)">Cancel Class</span>
+            } @else {
+            <span class="reschedule-btn" (click)="reschedule(slot)">Reschedule</span>
+            }
+          </div>
+          }
+          
           </div>
           }
         </ng-container>

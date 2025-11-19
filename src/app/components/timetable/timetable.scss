@@ -81,6 +81,8 @@
     &:hover {
       --x-multiplier: 20;
       --y-multiplier: 25;
+      // z-index: 100;
+      // div k neeche wale borders use krne hai jisse line upr na aay 
     }
   }
 
@@ -101,11 +103,11 @@
     cursor: pointer;
     transition: 0.5s ease;
     margin: 1%;
-    z-index: 1;
     position: absolute;
     transform: translate(
       calc(var(--i) * var(--x-multiplier) * 1px),
-      calc(var(--i) * var(--y-multiplier) * 1px)
+      calc(var(--i) * var(--y-multiplier) * 1px),
+      
     );
 
     transition: transform 0.3s ease-out;
@@ -133,15 +135,16 @@
         visibility: visible;
       }
     }
-    &.teacher:hover {
+    &.teacher:hover, &.admin:hover {
       transform: translate(
           calc(var(--i) * var(--x-multiplier) * 1px),
           calc(var(--i) * var(--y-multiplier) * 1px)
         )
         scale(1.1);
 
-      transition: width 2s height 2s;
-      z-index: 10 !important;
+      // transition: width 2s height 2s;
+      transition: transform 300ms ease, width 2s, height 2s;
+      z-index: 100 !important;
       width: max;
       // height: 7rem;
       box-shadow: 0 0 10px rgba(0, 0, 0.02);

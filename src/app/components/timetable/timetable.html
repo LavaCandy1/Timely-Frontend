@@ -5,6 +5,55 @@
     @if (userRole==='TEACHER') {
     <div class="extra">+ Extra Class</div>
     }
+    @if (userRole === 'ADMIN') {
+      @if (!isAddClassOpen) {
+        <div class="extra admin-add-btn" (click)="toggleAddClassForm()">
+          <i class="fas fa-plus"></i> Add Class
+        </div>
+      }
+
+      <!-- 2. The Form -->
+      @if (isAddClassOpen) {
+        <div class="add-class-form">
+          <h3>Add New Class Slot</h3>
+          <div class="form-grid">
+            <!-- Row 1 -->
+            <input type="text" placeholder="Course Code (e.g. CSET101)" [(ngModel)]="newClass.courseCode">
+            <input type="text" placeholder="Instructor Name" [(ngModel)]="newClass.instructor">
+            
+            <!-- Row 2: Batch Details -->
+            <div class="input-group">
+              <input type="text" placeholder="Batch (B1)" [(ngModel)]="newClass.batch">
+              <input type="text" placeholder="Year (4th)" [(ngModel)]="newClass.year">
+              <input type="text" placeholder="Group (G1)" [(ngModel)]="newClass.group">
+            </div>
+            
+            <!-- Row 3: Location -->
+            <input type="text" placeholder="Location (e.g. 102-LH)" [(ngModel)]="newClass.location">
+
+            <!-- Row 4: Dropdowns -->
+            <select [(ngModel)]="newClass.dayOfWeek">
+              <option *ngFor="let d of fullDays" [value]="d">{{d}}</option>
+            </select>
+
+            <select [(ngModel)]="newClass.startTime">
+              <option *ngFor="let t of times" [value]="t">{{t}}</option>
+            </select>
+
+            <select [(ngModel)]="newClass.slotType">
+              <option value="LECTURE">Lecture</option>
+              <option value="LAB">Lab</option>
+              <option value="TUTORIAL">Tutorial</option>
+            </select>
+          </div>
+
+          <div class="form-actions">
+            <button class="cancel-btn" (click)="toggleAddClassForm()">Cancel</button>
+            <button class="submit-btn" (click)="submitAddClass()">Add Class</button>
+          </div>
+        </div>
+      }
+    }
   </div>
 
   <!-- Table -->
@@ -122,6 +171,7 @@
             } @else {
             <span class="reschedule-btn" (click)="reschedule(slot)">Reschedule</span>
             }
+            <span class="delete-btn" (click)="delete(slot)">Delete Class</span>
           </div>
           }
           

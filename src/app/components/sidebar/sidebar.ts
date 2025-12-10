@@ -38,10 +38,12 @@ export class Sidebar {
     if (this.searchType === 'teacher') {
       console.log('Searching timetable for teacher:', this.teacherName);
       this.adminSearch.updateSearch('TEACHER', this.teacherName);
+      this.isOpen = false;
     }
     else if (this.searchType === 'batch') {
       console.log('Searching timetable for batch:', this.batch, 'Year:', this.year);
       this.adminSearch.updateSearch('BATCH', this.batch, this.year);
+      this.isOpen = false;
     }
   }
 }

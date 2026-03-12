@@ -7,6 +7,7 @@ import { AdminSlot } from '../../models/adminSlot.model';
 import { AdminSearchService } from '../../services/timetable/admin-search';
 import { Subscription } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import { RescheduleRequest } from '../../models/reschedule-request';
 
 @Component({
   selector: 'app-timetable',
@@ -23,8 +24,8 @@ export class TimeTableComponent implements OnInit {
 
   today = new Date();
 
-  // needs for add class 
-  isAddClassOpen: boolean = false; 
+  // needs for add class form
+  isFormOpen: boolean = false; 
   newClass: Partial<ClassSlot> = {
     courseCode: '',
     instructor: '',
@@ -36,6 +37,21 @@ export class TimeTableComponent implements OnInit {
     startTime: '08:30',
     location: ''
   };
+  
+  newRequest: Partial<RescheduleRequest> = {
+    slotType: 'LECTURE' as SlotType,
+    courseCode: '',
+    dayOfWeek: 'Monday',
+    startTime: '08:30',
+    group: '',
+    batch: '',
+    year: '',
+    reason: ''
+  };
+
+  // needs for extra class form
+  isExtraClassOpen: boolean = false;
+
 
   onMouseEnter(slot: any) {
     this.hoveredSlot = slot;
@@ -195,12 +211,12 @@ export class TimeTableComponent implements OnInit {
     });
   }
 
-  //add class methods
-  toggleAddClassForm() {
-    this.isAddClassOpen = !this.isAddClassOpen;
-    console.log("Add Class Form Toggled:", this.isAddClassOpen);
+  toggleForm() {
+    this.isFormOpen = !this.isFormOpen;
+    console.log("Form Toggled:", this.isFormOpen);
   }
-
+  
+  //add class methods
   submitAddClass() {
     console.log("Submitting:", this.newClass);
 
@@ -208,7 +224,7 @@ export class TimeTableComponent implements OnInit {
     this.timetableService.addClass(this.newClass).subscribe({
       next: (res) => {
         console.log("Class Added Successfully", res);
-        this.isAddClassOpen = false;
+        this.isFormOpen = false;
         this.resetForm();
         
         // Optional: refresh logic if you want to see the new class immediately
@@ -234,6 +250,26 @@ export class TimeTableComponent implements OnInit {
       startTime: '08:30',
       location: ''
     };
+    this.newRequest = {
+      slotType: 'LECTURE' as SlotType,
+      courseCode: '',
+      dayOfWeek: 'Monday',
+      startTime: '08:30',
+      group: '',
+      batch: '',
+      year: '',
+      reason: ''
+    };
+  }
+
+  sumbmitRescheduleRequest(): void {
+    // const newRequest = this.requestForm.value;
+    //implement the logic to submit the reschedule request using the Reschedule service
+    console.log("Submitting Reschedule Request:", this.newRequest);
+    this.isFormOpen = false;
+    this.resetForm();
+
+
   }
 
 }

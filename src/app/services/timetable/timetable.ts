@@ -35,8 +35,7 @@ export class TimetableService {
     };
     
     const url = `${this.apiUrl}/timetable/teacher`;
-    console.log("herere");
-    console.log(this.http.get<any[]>(url, { headers }));
+    // console.log(this.http.get<any[]>(url, { headers }));
 
     return this.http.get<any[]>(url, { headers }).pipe(
       map(dtos =>

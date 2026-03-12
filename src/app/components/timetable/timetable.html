@@ -28,9 +28,9 @@
               <option *ngFor="let t of times" [value]="t">{{t}}</option>
             </select>
             <div class="input-group">
-              <input type="text" placeholder="Batch (B1)" [(ngModel)]="newClass.batch">
-              <input type="text" placeholder="Group (G1)" [(ngModel)]="newClass.group">
-              <input type="text" placeholder="Year (4th)" [(ngModel)]="newClass.year">
+              <input type="text" placeholder="Batch (B1)" [(ngModel)]="newRequest.batch">
+              <input type="text" placeholder="Group (G1)" [(ngModel)]="newRequest.group">
+              <input type="text" placeholder="Year (4th)" [(ngModel)]="newRequest.year">
             </div>
 
             <input type="text" placeholder="Reason for Extra Class (Optional)" [(ngModel)]="newRequest.reason">

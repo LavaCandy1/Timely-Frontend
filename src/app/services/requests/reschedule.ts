@@ -15,12 +15,10 @@ export class Reschedule {
   // for submitting request
   createRescheduleRequest(requestData: RescheduleRequest): Observable<String> {
     const token = localStorage.getItem('token');
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
+    const headers = {Authorization: `Bearer ${token}`};
     const url = `${this.apiUrl}/requests/reschedule`;
 
-    return this.http.post<String>(url, requestData, { headers });
+    return this.http.post<any>(url, requestData, { headers });
     //return status string, e.g., "Request submitted successfully" or error message
 
   }

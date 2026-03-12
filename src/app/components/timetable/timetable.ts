@@ -8,6 +8,7 @@ import { AdminSearchService } from '../../services/timetable/admin-search';
 import { Subscription } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { RescheduleRequest } from '../../models/reschedule-request';
+import { Reschedule } from '../../services/requests/reschedule';
 
 @Component({
   selector: 'app-timetable',
@@ -83,7 +84,8 @@ export class TimeTableComponent implements OnInit {
   ];
 
   constructor(private timetableService: TimetableService,
-              private adminSearch : AdminSearchService
+              private adminSearch : AdminSearchService,
+              private rescheduleService : Reschedule
   ) {}
 
   ngOnInit(): void {
@@ -237,6 +239,26 @@ export class TimeTableComponent implements OnInit {
     });
   }
 
+  // extra request methods
+  sumbmitRescheduleRequest(): void {
+    // const newRequest = this.requestForm.value;
+    //implement the logic to submit the reschedule request using the Reschedule service
+    console.log("Submitting Reschedule Request:", this.newRequest);
+    this.isFormOpen = false;
+    // this.resetForm();
+
+    //submit the request to backend
+    this.rescheduleService.createRescheduleRequest(this.newRequest as RescheduleRequest).subscribe({
+      next: (res) => {
+        console.log("Reschedule Request Submitted Successfully /n ", res);
+      },
+      error: (err) => {
+        console.error("Error submitting reschedule request", err);
+      }
+    });
+
+  }
+
   resetForm() {
     this.newClass = {
       courseCode: '',
@@ -261,15 +283,7 @@ export class TimeTableComponent implements OnInit {
     };
   }
 
-  sumbmitRescheduleRequest(): void {
-    // const newRequest = this.requestForm.value;
-    //implement the logic to submit the reschedule request using the Reschedule service
-    console.log("Submitting Reschedule Request:", this.newRequest);
-    this.isFormOpen = false;
-    this.resetForm();
-
-
-  }
+  
 
 }
 

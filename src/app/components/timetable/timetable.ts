@@ -213,7 +213,6 @@ export class TimeTableComponent implements OnInit {
 
   toggleForm() {
     this.isFormOpen = !this.isFormOpen;
-    console.log("Form Toggled:", this.isFormOpen);
   }
   
   //add class methods

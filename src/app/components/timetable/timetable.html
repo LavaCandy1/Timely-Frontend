@@ -38,7 +38,7 @@
           </div>
           <div class="form-actions">
             <button class="cancel-btn" (click)="toggleForm()">Cancel</button>
-            <button class="submit-btn" (click)="sumbmitRescheduleRequest()">Submit</button>
+            <button class="submit-btn" (click)="sumbmitExtraClassRequest()">Submit</button>
           </div>
         </div>
       }
@@ -154,7 +154,7 @@
               @if (isCancelled(slot)=== false) {
               <span class="cancel-btn" (click)="cancel(slot)">Cancel Class</span>
               } @else {
-              <span class="reschedule-btn" (click)="reschedule(slot)">Reschedule</span>
+              <span class="extraClass-btn" (click)="extraClass(slot)">ExtraClass</span>
               }
             </div>
             }
@@ -207,7 +207,7 @@
             @if (isCancelled(slot)=== false) {
             <span class="cancel-btn" (click)="cancel(slot)">Cancel Class</span>
             } @else {
-            <span class="reschedule-btn" (click)="reschedule(slot)">Reschedule</span>
+            <span class="extraClass-btn" (click)="extraClass(slot)">ExtraClass</span>
             }
             <span class="delete-btn" (click)="delete(slot)">Delete Class</span>
           </div>

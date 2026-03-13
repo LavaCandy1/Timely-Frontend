@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { RescheduleRequest } from '../../models/reschedule-request';
+import { ExtraClassRequest } from '../../models/extraClass-request';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class Reschedule {
+export class ExtraClass {
   private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
   
   // for submitting request
-  createRescheduleRequest(requestData: RescheduleRequest): Observable<String> {
+  createExtraClassRequest(requestData: ExtraClassRequest): Observable<String> {
     const token = localStorage.getItem('token');
     const headers = {Authorization: `Bearer ${token}`};
-    const url = `${this.apiUrl}/requests/reschedule`;
+    const url = `${this.apiUrl}/requests/extraClassSubmit`;
 
     return this.http.post<any>(url, requestData, { headers });
     //return status string, e.g., "Request submitted successfully" or error message
@@ -28,9 +28,9 @@ export class Reschedule {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    const url = `${this.apiUrl}/requests/rescheduleRequests`;
+    const url = `${this.apiUrl}/requests/extraClassRequests`;
     
-    return this.http.get<RescheduleRequest[]>(url, { headers });
+    return this.http.get<ExtraClassRequest[]>(url, { headers });
 
   }
 

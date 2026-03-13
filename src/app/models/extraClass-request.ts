@@ -1,6 +1,6 @@
 export type SlotType = 'LECTURE' | 'LAB' | 'TUTORIAL';
 
-export interface RescheduleRequest {
+export interface ExtraClassRequest {
     id:number;
     slotType: SlotType;
     courseCode: string;

@@ -7,8 +7,8 @@ import { AdminSlot } from '../../models/adminSlot.model';
 import { AdminSearchService } from '../../services/timetable/admin-search';
 import { Subscription } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-import { RescheduleRequest } from '../../models/reschedule-request';
-import { Reschedule } from '../../services/requests/reschedule';
+import { ExtraClassRequest } from '../../models/extraClass-request';
+import { ExtraClass } from '../../services/requests/extraClass';
 
 @Component({
   selector: 'app-timetable',
@@ -39,7 +39,7 @@ export class TimeTableComponent implements OnInit {
     location: ''
   };
   
-  newRequest: Partial<RescheduleRequest> = {
+  newRequest: Partial<ExtraClassRequest> = {
     slotType: 'LECTURE' as SlotType,
     courseCode: '',
     dayOfWeek: 'Monday',
@@ -85,7 +85,7 @@ export class TimeTableComponent implements OnInit {
 
   constructor(private timetableService: TimetableService,
               private adminSearch : AdminSearchService,
-              private rescheduleService : Reschedule
+              private extraClassService : ExtraClass
   ) {}
 
   ngOnInit(): void {
@@ -194,7 +194,7 @@ export class TimeTableComponent implements OnInit {
     });
   }
 
-  reschedule(slot: TeacherSlot): void {
+  extraClass(slot: TeacherSlot): void {
 
     slot.cancelledDate = null;
     this.timetableService.cancelClass(slot).subscribe(response => { 
@@ -240,20 +240,20 @@ export class TimeTableComponent implements OnInit {
   }
 
   // extra request methods
-  sumbmitRescheduleRequest(): void {
+  sumbmitExtraClassRequest(): void {
     // const newRequest = this.requestForm.value;
-    //implement the logic to submit the reschedule request using the Reschedule service
-    console.log("Submitting Reschedule Request:", this.newRequest);
+    //implement the logic to submit the extraClass request using the ExtraClass service
+    console.log("Submitting ExtraClass Request:", this.newRequest);
     this.isFormOpen = false;
     // this.resetForm();
 
     //submit the request to backend
-    this.rescheduleService.createRescheduleRequest(this.newRequest as RescheduleRequest).subscribe({
+    this.extraClassService.createExtraClassRequest(this.newRequest as ExtraClassRequest).subscribe({
       next: (res) => {
-        console.log("Reschedule Request Submitted Successfully /n ", res);
+        console.log("ExtraClass Request Submitted Successfully /n ", res);
       },
       error: (err) => {
-        console.error("Error submitting reschedule request", err);
+        console.error("Error submitting extraClass request", err);
       }
     });
 

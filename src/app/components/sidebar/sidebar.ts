@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, output } from '@angular/core';
 import { Auth } from '../../services/auth/auth';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +12,9 @@ import { AdminSearchService } from '../../services/timetable/admin-search';
 })
 export class Sidebar {
   @Input() userRole: string | null = null;
+
+  viewChanger =  output<'timetable' | "requests">();
+
   public isOpen = false; 
   today = new Date();
   searchType: string = 'null';
@@ -45,5 +48,10 @@ export class Sidebar {
       this.adminSearch.updateSearch('BATCH', this.batch, this.year);
       this.isOpen = false;
     }
+  }
+
+  changeView(view: 'timetable' | 'requests') {
+    this.viewChanger.emit(view);
+    this.isOpen = false;
   }
 }

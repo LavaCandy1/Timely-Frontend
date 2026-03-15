@@ -1,1 +1,64 @@
-<p>requests works!</p>
+<div class="requestsContainer">
+    <h1>Requests</h1>
+
+    <div class="typeSelector">
+        <div class="typeButton">
+            <a 
+                class="reqButton extraClass"
+                (mouseenter)="updateCoords($event)" 
+                (mouseleave)="updateCoords($event)"
+            >
+                Extra Class
+                <span [ngStyle]="{'top': spanStyle.top, 'left': spanStyle.left}"></span>
+                
+            </a>
+        </div>
+        <div class="typeButton">
+            <a 
+                class="reqButton extraClass"
+                (mouseenter)="updateCoords($event)" 
+                (mouseleave)="updateCoords($event)"
+            >
+                Extra Class
+                <span [ngStyle]="{'top': spanStyle.top, 'left': spanStyle.left}"></span>
+                
+            </a>
+        </div>
+        <div class="typeButton">
+            <a 
+                class="reqButton extraClass"
+                (mouseenter)="updateCoords($event)" 
+                (mouseleave)="updateCoords($event)"
+            >
+                Leave
+                <span [ngStyle]="{'top': spanStyle.top, 'left': spanStyle.left}"></span>
+                
+            </a>
+        </div>
+        <div class="typeButton">
+            <a 
+                class="reqButton extraClass"
+                (mouseenter)="updateCoords($event)" 
+                (mouseleave)="updateCoords($event)"
+            >
+                Event
+                <span [ngStyle]="{'top': spanStyle.top, 'left': spanStyle.left}"></span>
+                
+            </a>
+        </div>
+    </div>
+    <div class="requestsList">
+            <div class="requestItem">
+                <h3>Request 1</h3>
+                <p>Details about Request 1</p>
+            </div>
+            <div class="requestItem">
+                <h3>Request 2</h3>
+                <p>Details about Request 2</p>
+            </div>
+            <div class="requestItem">
+                <h3>Request 3</h3>
+                <p>Details about Request 3</p>
+            </div>
+    </div>
+</div>

@@ -1,3 +1,21 @@
+// @mixin custom-scrollbar($thumb-color: #888, $track-color: #f1f1f1, $width: 8px) {
+//   // Standard
+//   scrollbar-width: thin;
+//   scrollbar-color: $thumb-color $track-color;
+
+//   // Webkit
+//   &::-webkit-scrollbar {
+//     width: $width;
+//   }
+//   &::-webkit-scrollbar-track {
+//     background: $track-color;
+//   }
+//   &::-webkit-scrollbar-thumb {
+//     background-color: $thumb-color;
+//     border-radius: 20px;
+//     border: 2px solid $track-color;
+//   }
+// }
 
 .dashboard-layout {
   display: flex;
@@ -17,5 +35,14 @@
   padding-top: 0.9rem;
   padding-right: 2rem;
   overflow-y: auto; /* Allows scrolling if content is long */
+
+  // scrollbar-width: none;
+  
+  &::-webkit-scrollbar {
+    display: none; /* Hides the scrollbar for WebKit browsers */
+  }
+  // @include custom-scrollbar(#3498db, #ebf5fb, 6px);
 }
+
+
 

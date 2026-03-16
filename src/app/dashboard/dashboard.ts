@@ -16,7 +16,7 @@ export class Dashboard {
 
   constructor(private authService: Auth) {}
 
-  currentView: 'timetable' | 'requests' = 'timetable';
+  currentView: 'timetable' | 'requests' = 'requests';
 
   changeView(event: 'timetable' | 'requests') {
     this.currentView = event;

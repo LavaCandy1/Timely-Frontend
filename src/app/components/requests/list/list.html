@@ -1,10 +1,17 @@
 <div class="listContainer">
 
+    @for (request of requests; track $index) {
     <div class="requestItem">
-        <h4>Request 1</h4>
+        <h4
+            (click)="openRequest(request.id)"
+        >{{request.name}}</h4>
         
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas enim asperiores exercitationem atque. Aliquam praesentium cupiditate, minima id nisi eaque quis accusamus voluptates dignissimos? Officia accusamus blanditiis magnam molestiae fuga!</p>
+        @if(openedRequestId() === request.id) {
+        <p>{{request.description}}</p>
+        }
     </div>
+    }
+    
 
     <!-- <div class="requestItem">
         Request 2

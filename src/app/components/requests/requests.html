@@ -2,49 +2,34 @@
     <h1>Requests</h1>
 
     <div class="typeSelector">
-        <div class="typeButton">
-            <a 
-                class="reqButton extraClass"
+        <div class="typeButton"
                 (mouseenter)="updateCoords($event)" 
                 (mouseleave)="updateCoords($event)"
             >
                 Extra Class
                 <span [ngStyle]="{'top': spanStyle.top, 'left': spanStyle.left}"></span>
-                
-            </a>
         </div>
-        <div class="typeButton">
-            <a 
-                class="reqButton extraClass"
+        <div class="typeButton"
                 (mouseenter)="updateCoords($event)" 
                 (mouseleave)="updateCoords($event)"
             >
-                Extra Class
+                Room Change
                 <span [ngStyle]="{'top': spanStyle.top, 'left': spanStyle.left}"></span>
-                
-            </a>
         </div>
-        <div class="typeButton">
-            <a 
-                class="reqButton extraClass"
+        <div class="typeButton"
                 (mouseenter)="updateCoords($event)" 
                 (mouseleave)="updateCoords($event)"
             >
                 Leave
                 <span [ngStyle]="{'top': spanStyle.top, 'left': spanStyle.left}"></span>
-                
-            </a>
         </div>
-        <div class="typeButton">
-            <a 
-                class="reqButton extraClass"
+        <div class="typeButton"
                 (mouseenter)="updateCoords($event)" 
                 (mouseleave)="updateCoords($event)"
             >
                 Event
                 <span [ngStyle]="{'top': spanStyle.top, 'left': spanStyle.left}"></span>
                 
-            </a>
         </div>
     </div>
     <div class="requestsList">

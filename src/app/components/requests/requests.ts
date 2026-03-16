@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Required for [ngStyle]
+import { List } from './list/list';
 
 @Component({
   selector: 'app-requests',
-  imports: [CommonModule], // MUST import CommonModule to use [ngStyle]
+  imports: [CommonModule, List], // MUST import CommonModule to use [ngStyle]
   templateUrl: './requests.html',
   styleUrl: './requests.scss'
 })

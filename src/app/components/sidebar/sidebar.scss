@@ -101,7 +101,7 @@
 
   .search {
     background-color: #557ab1;
-    width: 0rem;
+    width: 16.5rem;
     height: 100vh;
     transition: width 0.3s ease-in-out;
     z-index: 1000;
@@ -113,8 +113,13 @@
     // align-items: center;
     padding: 0.75rem 0;
 
-    &.open {
-      width: 16.5rem;
+    // animation: sidebarOpen 2s ease-out 1   forwards;
+
+    &.searchOpen {
+      animation: slideIn 0.5s ease-in-out 1 forwards;
+    }
+    &.searchClose {
+      animation: slideIn 0.3s ease-out 1 reverse forwards;
     }
 
     .search-box {
@@ -235,4 +240,15 @@
       }
     }
   }
+}
+
+@keyframes slideIn {
+
+  from{
+    transform : translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+  
 }

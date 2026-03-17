@@ -58,7 +58,7 @@
 
         <!-- Conditional fields -->
         @if (searchType === 'teacher') {
-          <div *ngIf="searchType === 'teacher'" class="form-group">
+          <div class="form-group">
             <label for="teacherName">Teacher Name:</label>
             <input id="teacherName" [(ngModel)] = "teacherName" name="teacherName" type="text" placeholder="Enter teacher name" />
           </div>

@@ -40,10 +40,12 @@
       </div>
     </div>
   </div>
-  @if (userRole==="ADMIN") {
-  <div class="search" [ngClass]="{ open: isOpen && userRole === 'ADMIN' }">
-    @if (isOpen) {
-    <div class="box">
+
+  @if (userRole==="ADMIN" && isOpen) {
+  <div class="search" [ngClass]="{ open: isOpen && userRole === 'ADMIN' }" animate.enter="searchOpen"
+    animate.leave="searchClose">
+
+    <div class="search-box">
       <h3>Search Timetable</h3>
 
       <form class="formItems" (ngSubmit)="searchTimetable()">
@@ -58,18 +60,16 @@
 
         <!-- Conditional fields -->
         @if (searchType === 'teacher') {
-        <div *ngIf="searchType === 'teacher'" class="form-group">
+
+        <div class="form-group">
           <label for="teacherName">Teacher Name:</label>
           <input id="teacherName" [(ngModel)]="teacherName" name="teacherName" type="text"
             placeholder="Enter teacher name" />
         </div>
-        <button type="submit" class="search-item" (click)="searchTimetable()">
-          <i class="fas fa-search"></i>
-        </button>
         }
-
-
-
+        <!-- <button type="submit" class="search-item" (click)="searchTimetable()">
+          <i class="fas fa-search"></i>
+        </button> -->
         @if (searchType === 'batch') {
         <div class="form-group batch-fields">
           <label for="year">Year:</label>
@@ -78,13 +78,19 @@
           <label for="batch">Batch:</label>
           <input id="batch" [(ngModel)]="batch" name="batch" type="text" placeholder="e.g., A, B, C" />
         </div>
-        <button type="submit" class="search-item" (click)="searchTimetable()">
+        }
+        <button type="submit" class="search-item" (click)="searchTimetable(); changeView('timetable')">
           <i class="fas fa-search"></i>
         </button>
-        }
+
       </form>
     </div>
-    }
+    <div class="request-box">
+      <h3>Requests Lookup</h3>
+      <button class="sidebar-item" (click)="changeView('requests')">
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
   </div>
   }
 </div>

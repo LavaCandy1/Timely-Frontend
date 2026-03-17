@@ -1,0 +1,16 @@
+<div class="listContainer">
+    @for (request of requests; track $index) {
+    <div class="requestItem">
+        <h4
+            (click)="openRequest(request.id)"
+        >{{request.name}}</h4>
+        
+        @if(openedRequestId() === request.id) {
+        <p
+            animate.enter = "open"
+            animate.leave = "close"
+        >{{request.description}}</p>
+        }
+    </div>
+    }
+</div>

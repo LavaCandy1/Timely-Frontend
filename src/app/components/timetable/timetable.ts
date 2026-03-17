@@ -7,6 +7,8 @@ import { AdminSlot } from '../../models/adminSlot.model';
 import { AdminSearchService } from '../../services/timetable/admin-search';
 import { Subscription } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import { ExtraClassRequest } from '../../models/extraClass-request';
+import { ExtraClass } from '../../services/requests/extraClass';
 
 @Component({
   selector: 'app-timetable',
@@ -23,8 +25,8 @@ export class TimeTableComponent implements OnInit {
 
   today = new Date();
 
-  // needs for add class 
-  isAddClassOpen: boolean = false; 
+  // needs for add class form
+  isFormOpen: boolean = false; 
   newClass: Partial<ClassSlot> = {
     courseCode: '',
     instructor: '',
@@ -36,6 +38,21 @@ export class TimeTableComponent implements OnInit {
     startTime: '08:30',
     location: ''
   };
+  
+  newRequest: Partial<ExtraClassRequest> = {
+    slotType: 'LECTURE' as SlotType,
+    courseCode: '',
+    dayOfWeek: 'Monday',
+    startTime: '08:30',
+    group: '',
+    batch: '',
+    year: '',
+    reason: ''
+  };
+
+  // needs for extra class form
+  isExtraClassOpen: boolean = false;
+
 
   onMouseEnter(slot: any) {
     this.hoveredSlot = slot;
@@ -67,7 +84,8 @@ export class TimeTableComponent implements OnInit {
   ];
 
   constructor(private timetableService: TimetableService,
-              private adminSearch : AdminSearchService
+              private adminSearch : AdminSearchService,
+              private extraClassService : ExtraClass
   ) {}
 
   ngOnInit(): void {
@@ -176,7 +194,7 @@ export class TimeTableComponent implements OnInit {
     });
   }
 
-  reschedule(slot: TeacherSlot): void {
+  extraClass(slot: TeacherSlot): void {
 
     slot.cancelledDate = null;
     this.timetableService.cancelClass(slot).subscribe(response => { 
@@ -195,12 +213,11 @@ export class TimeTableComponent implements OnInit {
     });
   }
 
-  //add class methods
-  toggleAddClassForm() {
-    this.isAddClassOpen = !this.isAddClassOpen;
-    console.log("Add Class Form Toggled:", this.isAddClassOpen);
+  toggleForm() {
+    this.isFormOpen = !this.isFormOpen;
   }
-
+  
+  //add class methods
   submitAddClass() {
     console.log("Submitting:", this.newClass);
 
@@ -208,7 +225,7 @@ export class TimeTableComponent implements OnInit {
     this.timetableService.addClass(this.newClass).subscribe({
       next: (res) => {
         console.log("Class Added Successfully", res);
-        this.isAddClassOpen = false;
+        this.isFormOpen = false;
         this.resetForm();
         
         // Optional: refresh logic if you want to see the new class immediately
@@ -220,6 +237,26 @@ export class TimeTableComponent implements OnInit {
         console.error("Error adding class", err);
       }
     });
+  }
+
+  // extra request methods
+  sumbmitExtraClassRequest(): void {
+    // const newRequest = this.requestForm.value;
+    //implement the logic to submit the extraClass request using the ExtraClass service
+    console.log("Submitting ExtraClass Request:", this.newRequest);
+    this.isFormOpen = false;
+    // this.resetForm();
+
+    //submit the request to backend
+    this.extraClassService.createExtraClassRequest(this.newRequest as ExtraClassRequest).subscribe({
+      next: (res) => {
+        console.log("ExtraClass Request Submitted Successfully /n ", res);
+      },
+      error: (err) => {
+        console.error("Error submitting extraClass request", err);
+      }
+    });
+
   }
 
   resetForm() {
@@ -234,7 +271,19 @@ export class TimeTableComponent implements OnInit {
       startTime: '08:30',
       location: ''
     };
+    this.newRequest = {
+      slotType: 'LECTURE' as SlotType,
+      courseCode: '',
+      dayOfWeek: 'Monday',
+      startTime: '08:30',
+      group: '',
+      batch: '',
+      year: '',
+      reason: ''
+    };
   }
+
+  
 
 }
 

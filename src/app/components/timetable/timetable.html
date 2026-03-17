@@ -3,22 +3,55 @@
   <div class="header">
     <h2>{{ today | date : 'MMMM' }} {{ year }}</h2>
     @if (userRole==='TEACHER') {
-    @if(!isExtraClassOpen){
-    <div class="extra" (click)="toggleExtraClassForm()">+ Extra Class</div>
-    }
-    @if (isExtraClassOpen) {
-    <div>Here comes the form</div>
+    <!-- @if (!isFormOpen) { -->
+    <div class="extra" (click)="toggleForm()">
+      <i class="fas fa-plus"></i> Extra Class
+    </div>
+    <!-- } -->
+    @if (isFormOpen) {
+    <div class="add-class-form">
+      <h3>Request an Extra Class</h3>
+      <div class="form-grid">
+        <!-- Row 1 -->
+        <select [(ngModel)]="newRequest.slotType">
+          <option value="LECTURE">Lecture</option>
+          <option value="LAB">Lab</option>
+          <option value="TUTORIAL">Tutorial</option>
+        </select>
+
+        <input type="text" placeholder="Course Code (e.g. CSET101)" [(ngModel)]="newRequest.courseCode">
+
+        <select [(ngModel)]="newRequest.dayOfWeek">
+          <option *ngFor="let d of fullDays" [value]="d">{{d}}</option>
+        </select>
+        <select [(ngModel)]="newRequest.startTime">
+          <option *ngFor="let t of times" [value]="t">{{t}}</option>
+        </select>
+        <div class="input-group">
+          <input type="text" placeholder="Batch (B1)" [(ngModel)]="newRequest.batch">
+          <input type="text" placeholder="Group (G1)" [(ngModel)]="newRequest.group">
+          <input type="text" placeholder="Year (4th)" [(ngModel)]="newRequest.year">
+        </div>
+
+        <input type="text" placeholder="Reason for Extra Class (Optional)" [(ngModel)]="newRequest.reason">
+
+      </div>
+      <div class="form-actions">
+        <button class="cancel-btn" (click)="toggleForm()">Cancel</button>
+        <button class="submit-btn" (click)="sumbmitExtraClassRequest()">Submit</button>
+      </div>
+    </div>
     }
     }
     @if (userRole === 'ADMIN') {
-    @if (!isAddClassOpen) {
-    <div class="extra admin-add-btn" (click)="toggleAddClassForm()">
+    @if (!isFormOpen) {
+    <div class="extra admin-add-btn" (click)="toggleForm()">
       <i class="fas fa-plus"></i> Add Class
     </div>
-    }
+
 
     <!-- 2. The Form -->
-    @if (isAddClassOpen) {
+    @if (isFormOpen) {
     <div class="add-class-form">
       <h3>Add New Class Slot</h3>
       <div class="form-grid">
@@ -29,8 +62,8 @@
         <!-- Row 2: Batch Details -->
         <div class="input-group">
           <input type="text" placeholder="Batch (B1)" [(ngModel)]="newClass.batch">
-          <input type="text" placeholder="Year (4th)" [(ngModel)]="newClass.year">
           <input type="text" placeholder="Group (G1)" [(ngModel)]="newClass.group">
+          <input type="text" placeholder="Year (4th)" [(ngModel)]="newClass.year">
         </div>
 
         <!-- Row 3: Location -->
@@ -52,8 +85,9 @@
         </select>
       </div>
 
+
       <div class="form-actions">
-        <button class="cancel-btn" (click)="toggleAddClassForm()">Cancel</button>
+        <button class="cancel-btn" (click)="toggleForm()">Cancel</button>
         <button class="submit-btn" (click)="submitAddClass()">Add Class</button>
       </div>
     </div>
@@ -112,7 +146,7 @@
               @if (isCancelled(slot)=== false) {
               <span class="cancel-btn" (click)="cancel(slot)">Cancel Class</span>
               } @else {
-              <span class="reschedule-btn" (click)="reschedule(slot)">Reschedule</span>
+              <span class="extraClass-btn" (click)="extraClass(slot)">ExtraClass</span>
               }
             </div>
             }
@@ -151,6 +185,7 @@
                 <span class="batch1">{{ slot.batches.join(', ') }}</span>
               </div>
             </div>
+
             }
             @if (hoveredSlot === slot) {
             <!-- cancel class button -->
@@ -158,14 +193,22 @@
               @if (isCancelled(slot)=== false) {
               <span class="cancel-btn" (click)="cancel(slot)">Cancel Class</span>
               } @else {
-              <span class="reschedule-btn" (click)="reschedule(slot)">Reschedule</span>
+              <span class="extraClass-btn" (click)="extraClass(slot)">ExtraClass</span>
               }
-              <span class="delete-btn" (click)="delete(slot)">Delete Class</span>
+              @if (hoveredSlot === slot) {
+              <!-- cancel class button -->
+              <div class="buttons">
+                @if (isCancelled(slot)=== false) {
+                <span class="cancel-btn" (click)="cancel(slot)">Cancel Class</span>
+                } @else {
+                <span class="reschedule-btn" (click)="reschedule(slot)">Reschedule</span>
+                }
+                <span class="delete-btn" (click)="delete(slot)">Delete Class</span>
+              </div>
+              }
+
             </div>
             }
-
-          </div>
-          }
         </ng-container>
         }
       </div>

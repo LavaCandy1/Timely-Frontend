@@ -1,5 +1,4 @@
 <div class="listContainer">
-
     @for (request of requests; track $index) {
     <div class="requestItem">
         <h4
@@ -7,16 +6,11 @@
         >{{request.name}}</h4>
         
         @if(openedRequestId() === request.id) {
-        <p>{{request.description}}</p>
+        <p
+            animate.enter = "open"
+            animate.leave = "close"
+        >{{request.description}}</p>
         }
     </div>
     }
-    
-
-    <!-- <div class="requestItem">
-        Request 2
-    </div>
-    <div class="requestItem">
-        Request 3
-    </div> -->
 </div>

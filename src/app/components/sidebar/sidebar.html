@@ -16,8 +16,8 @@
       <div class="divider"></div>
 
       @if (userRole==="ADMIN") {
-      <div class="sidebar-item" (click)="toggleSearch()">   
-        <i class="fas fa-search"></i>
+      <div class="sidebar-item" (click)="toggleSearch()">
+        <i class="fas" [ngClass]="isOpen ? 'fa-chevron-left' : 'fa-search'"></i>
       </div>
 
       <div class="divider"></div>
@@ -40,13 +40,13 @@
       </div>
     </div>
   </div>
-@if (userRole==="ADMIN") {
+  @if (userRole==="ADMIN") {
   <div class="search" [ngClass]="{ open: isOpen && userRole === 'ADMIN' }">
     @if (isOpen) {
     <div class="box">
       <h3>Search Timetable</h3>
 
-      <form (ngSubmit)="searchTimetable()">
+      <form class="formItems" (ngSubmit)="searchTimetable()">
         <!-- Search type -->
         <div class="form-group">
           <label for="searchType">Search by:</label>
@@ -60,15 +60,16 @@
         @if (searchType === 'teacher') {
         <div *ngIf="searchType === 'teacher'" class="form-group">
           <label for="teacherName">Teacher Name:</label>
-          <input id="teacherName" [(ngModel)] = "teacherName" name="teacherName" type="text" placeholder="Enter teacher name" />
+          <input id="teacherName" [(ngModel)]="teacherName" name="teacherName" type="text"
+            placeholder="Enter teacher name" />
         </div>
         <button type="submit" class="search-item" (click)="searchTimetable()">
           <i class="fas fa-search"></i>
         </button>
-        } 
-        
-        
-        
+        }
+
+
+
         @if (searchType === 'batch') {
         <div class="form-group batch-fields">
           <label for="year">Year:</label>
@@ -85,5 +86,5 @@
     </div>
     }
   </div>
-}
+  }
 </div>

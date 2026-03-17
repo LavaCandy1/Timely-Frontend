@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 
 @Component({
   selector: 'app-list',
@@ -9,6 +9,7 @@ import { Component, signal } from '@angular/core';
 export class List {
 
   protected openedRequestId = signal<number | null>(null);
+  requestType = input<string>("");
 
   protected requests = [
     {

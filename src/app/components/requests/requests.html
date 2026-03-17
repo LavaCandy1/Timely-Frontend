@@ -7,6 +7,7 @@
             <div class="typeButton"
                 (mouseenter)="updateCoords($event)" 
                 (mouseleave)="updateCoords($event)"
+                (click)="requestType.set(type)"
             >
                 {{type}}
                 <span [ngStyle]="{'top': spanStyle.top, 'left': spanStyle.left}"></span>
@@ -15,6 +16,6 @@
     </div>
     <div class="requestsList">
             
-            <app-list></app-list>
+            <app-list [requestType]="requestType()"></app-list>
     </div>
 </div>

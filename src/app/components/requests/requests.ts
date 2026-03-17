@@ -14,6 +14,7 @@ export class Requests {
     left: '0px'
   };
 
+  protected requestType = signal<string>("");
   protected requestTypes = ['Extra Class', 'Room Change', 'Leave', 'Other'];
 
   updateCoords(event: MouseEvent): void {

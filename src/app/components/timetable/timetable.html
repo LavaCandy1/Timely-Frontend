@@ -154,7 +154,7 @@
               @if (isCancelled(slot)=== false) {
               <span class="cancel-btn" (click)="cancel(slot)">Cancel Class</span>
               } @else {
-              <span class="extraClass-btn" (click)="extraClass(slot)">ExtraClass</span>
+              <span class="reschedule-btn" (click)="reschedule(slot)">Reschedule</span>
               }
             </div>
             }
@@ -207,7 +207,7 @@
             @if (isCancelled(slot)=== false) {
             <span class="cancel-btn" (click)="cancel(slot)">Cancel Class</span>
             } @else {
-            <span class="extraClass-btn" (click)="extraClass(slot)">ExtraClass</span>
+            <span class="reschedule-btn" (click)="reschedule(slot)">Reschedule</span>
             }
             <span class="delete-btn" (click)="delete(slot)">Delete Class</span>
           </div>

@@ -194,7 +194,7 @@ export class TimeTableComponent implements OnInit {
     });
   }
 
-  extraClass(slot: TeacherSlot): void {
+  reschedule(slot: TeacherSlot): void {
 
     slot.cancelledDate = null;
     this.timetableService.cancelClass(slot).subscribe(response => { 

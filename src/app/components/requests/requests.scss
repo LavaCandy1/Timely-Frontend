@@ -52,6 +52,10 @@ $text-color-light: $background-color;
 
       display: flex;
       justify-content: center;
+      transition: transform 0.1s ease-out;
+      &:active{
+        transform: scale(0.95); // Slight "click" feel
+      }
 
       span {
         position: absolute;

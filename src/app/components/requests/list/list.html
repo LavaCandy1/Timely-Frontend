@@ -68,6 +68,8 @@
         }
     } @else if (requestsResource.isLoading()) {
         <h1>Loading...</h1>
+    } @else if (requestsResource.error(); as err) {
+        <h1>{{err}}</h1>
     }
 </div>
 }

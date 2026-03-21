@@ -1,5 +1,5 @@
 <div class="listContainer">
-@for (request of listData(); track $index) {
+@for (request of sortedListData(); track $index) {
     <div class="requestItem">
         <div class="requestHeader"
             (click)="openRequest(request.id)"

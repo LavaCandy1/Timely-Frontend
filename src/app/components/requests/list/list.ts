@@ -6,10 +6,11 @@ import { EMPTY, of } from 'rxjs';
 import { ExtraClassList } from '../extra-class-list/extra-class-list';
 import { LeaveList } from '../leave-list/leave-list';
 import { RoomChangeList } from '../room-change-list/room-change-list';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-list',
-  imports: [FormsModule, ExtraClassList, LeaveList, RoomChangeList],
+  imports: [FormsModule, ExtraClassList, LeaveList, RoomChangeList, CommonModule],
   templateUrl: './list.html',
   styleUrl: './list.scss'
 })

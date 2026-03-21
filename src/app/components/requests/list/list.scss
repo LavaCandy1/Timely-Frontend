@@ -1,0 +1,61 @@
+$timely-dark: #1b2b45;
+$timely-gold: #a68768;
+$timely-gold-hover: #9b794a;
+$bg-light: #e4e8eb;
+
+.listHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-right: 10px;
+
+    // h3 {
+    //     margin: 0;
+    //     color: $timely-dark;
+    //     font-weight: 500;
+    //     letter-spacing: 0.5px;
+    // }
+}
+
+.refresh-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+    background-color: transparent;
+    color: $timely-gold;
+    border: 2px solid $timely-gold;
+    padding: 8px 16px;
+    border-radius: 20px; // Matching your requestItem and sidebar-item radius
+    
+    font-family: 'Tilt Neon', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    i {
+        font-size: 1rem;
+        transition: transform 0.5s ease;
+    }
+
+    &:hover {
+        background-color: $timely-gold;
+        color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+        i {
+            transform: rotate(180deg); // Subtle visual feedback
+        }
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+}
+
+// Optional: Add a spinning class if requestsResource.isLoading() is true
+.spinning {
+    animation: fa-spin 1s infinite linear;
+}

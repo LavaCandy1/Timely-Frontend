@@ -50,8 +50,8 @@
             </select>
         </div>
         <div class="actions">
-            <button class="approve">Approve</button>
-            <button class="reject">Reject</button>
+            <button class="approve" (click)="approveRequest(request.id)">Approve</button>
+            <button class="reject" (click)="rejectRequest(request.id)">Reject</button>
         </div>
     </div>
         }

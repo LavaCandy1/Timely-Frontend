@@ -7,7 +7,9 @@
     <h3>{{requestType()}} Requests</h3>
         @if (requestsResource.value()) {
             @if (requestType() === 'Extra Class') {
-                <app-extra-class-list [listData] = "requestsResource.value()"></app-extra-class-list>
+                <app-extra-class-list 
+                    [listData] = "requestsResource.value()"
+                ></app-extra-class-list>
             } @else if (requestType() === 'Leave') {
                 <app-leave-list></app-leave-list>
             } @else if (requestType() === 'Room Change') {

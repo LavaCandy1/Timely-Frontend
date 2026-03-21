@@ -35,4 +35,24 @@ export class ExtraClass {
   }
 
   // searchForLocationOptions() {}
+
+  approveExtraClassRequest(requestId: number): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    const url = `${this.apiUrl}/requests/extraClassRequests/${requestId}/approve`;
+
+    return this.http.put<any>(url, {}, { headers }); 
+  }
+
+  rejectExtraClassRequest(requestId: number): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    const url = `${this.apiUrl}/requests/extraClassRequests/${requestId}/reject`;
+
+    return this.http.put<any>(url, {}, { headers });
+  }
 }

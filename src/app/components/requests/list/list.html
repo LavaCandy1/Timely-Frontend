@@ -1,16 +1,25 @@
-<div class="listContainer">
-    @for (request of requests; track $index) {
-    <div class="requestItem">
-        <h4
-            (click)="openRequest(request.id)"
-        >{{request.name}}</h4>
-        
-        @if(openedRequestId() === request.id) {
-        <p
-            animate.enter = "open"
-            animate.leave = "close"
-        >{{request.description}}</p>
-        }
+@if (!requestType()) {
+    <div class="emptyState">
+        <h2>No Request Type Selected</h2>
+        <p>Please select a request type to view the requests.</p>
     </div>
-    }
-</div>
+} @else {
+    <h3>{{requestType()}} Requests</h3>
+        @if (requestsResource.value()) {
+            @if (requestType() === 'Extra Class') {
+                <app-extra-class-list [listData] = "requestsResource.value()"></app-extra-class-list>
+            } @else if (requestType() === 'Leave') {
+                <app-leave-list></app-leave-list>
+            } @else if (requestType() === 'Room Change') {
+                <app-room-change-list></app-room-change-list>
+            }
+        } @else if (requestsResource.isLoading()) {
+            <div class="loadingState">
+                <p>Loading requests...</p>
+            </div>
+        } @else {
+            <div class="errorState">
+                <p>Failed to load requests. Please try again later.</p>
+            </div>
+        }
+}

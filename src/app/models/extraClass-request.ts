@@ -14,4 +14,5 @@ export interface ExtraClassRequest {
 
     status: 'PENDING' | 'APPROVED' | 'REJECTED';
     reason: string;
+    createdAt: string;
 }

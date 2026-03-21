@@ -1,0 +1,246 @@
+.listContainer{
+    display: grid;
+    grid-template-columns: min(1fr , auto);
+    grid-template-rows: auto;
+    gap: 4px;    
+
+    .requestItem{
+        overflow: hidden;
+        border-radius: 10px;
+        // position: relative;
+
+        .requestHeader{
+            position: relative;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            padding: 12px 24px;
+            border-radius: 10px;
+            background-color: #cdd4da;
+            border: 2px solid #a4b6c4;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr min-content;
+            gap: 5px;
+
+            .rotated{
+                transform: rotate(-180deg);
+            }
+
+            .sender{
+                align-items: left;
+                justify-self: start;
+            }
+            .status{
+                text-align: center;
+                justify-self: center;
+                @media (max-width: 700px) {
+                    display: none;
+                }
+            }
+            .date{ 
+                grid-area: 1 / -3 / 2 / -2;
+                // grid-area: 10 / -2;
+                text-align: right;
+                justify-self: end;
+            }
+            .arrow{
+                grid-area: 1 / -2 / 2 / -1;
+                align-self: center;
+                justify-self: center;
+                transition: transform 0.3s ease-in-out;
+
+            }
+        }
+        .details{
+            position: relative;
+            margin-top: -25px;
+            padding-top: 24px;
+            padding-bottom:  12px;
+            padding-inline:  24px;
+            border-radius: 10px;
+            background-color: #e4e8eb;
+            border: 2px solid #a4b6c4;
+
+            transform-origin: top;
+            z-index: 1;
+
+            //for children
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-auto-flow: row dense;
+
+            &.open {
+                animation: drawer 0.3s ease-in-out 0s 1 normal forwards;
+                // transform-origin: top;
+            }
+            &.close {
+                animation: drawer 0.3s ease-in-out 0s 1 reverse forwards;
+                // transform-origin: top;
+            }
+
+            .detailItem{
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                padding-left: 5px;
+                padding-top: 5px;
+                // border-right: 1px solid #cdd4da;
+                // @media (max-width: 500px) {
+                //     border-right: none;
+                //     border-bottom: 1px solid #cdd4da;
+                //     padding-bottom: 10px;
+                // }
+
+                .label {
+                    font-weight: bold;
+                    font-size: 1.05rem;
+                    color: #5a6a77;
+                }
+
+                .value {
+                    font-size: 0.95rem;
+                    color: #333;
+                }
+
+                // --- VERTICAL LINE ---
+                &::after {
+                    content: "";
+                    position: absolute;
+                    right: -10px; // Half of the grid gap
+                    top: 0%;
+                    height: 100%;
+                    width: 1px;
+                    background-color: #cdd4da;
+                }
+
+                // --- HORIZONTAL LINE ---
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: -10px; // Half of the grid gap
+                    left: 0;
+                    width: 100%;
+                    height: 1px;
+                    background-color: #cdd4da;
+                }
+            }
+            .locationInput {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                // grid-area: -2 / 1 / -1 / 2;
+                // order: 999;
+                grid-column: 1;
+
+                // .label {
+                //     font-weight: bold;
+                //     font-size: 0.85rem;
+                //     color: #5a6a77;
+                // }
+
+                select.value {
+                    appearance: none; // Removes default browser arrow
+                    -webkit-appearance: none;
+                    
+                    padding: 8px 12px;
+                    // font-size: 0.95rem;
+                    border: 2px solid #a4b6c4;
+                    border-radius: 6px;
+                    background-color: #f1f1f1;
+                    // color: #333;
+                    cursor: pointer;
+                    outline: none;
+                    transition: all 0.2s ease-in-out;
+
+                    // Custom arrow icon using a simple SVG data URI
+                    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a4b6c4' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-position: right 10px center;
+                    background-size: 14px;
+                    // padding-right: 35px; // Space for the arrow
+
+                    &:hover {
+                        border-color: #8196a7;
+                        background-color: #fdfdfd;
+                    }
+
+                    &:focus {
+                        border-color: #3b82f6;
+                        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+                    }
+
+                    &:disabled {
+                        background-color: #ececec;
+                        cursor: not-allowed;
+                    }
+                }
+            }
+            .actions {
+                // grid-column: -1; 
+                grid-column: 1 / -1;// Pins it to the last column
+                display: flex;
+                gap: 10px;
+                align-items: flex-end; // Aligns buttons to the bottom of the grid cell
+                justify-content: flex-end;
+
+                button {
+                    padding: 8px 18px;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    transition: all 0.2s ease-in-out;
+                    border: 2px solid transparent;
+                    outline: none;
+
+                    &:active {
+                        transform: scale(0.95); // Slight "click" feel
+                    }
+                }
+
+                .approve {
+                    background-color: transparent;
+                    color: #2e7d32; // Professional Red
+                    border-color: #2e7d32;
+                    
+                    &:hover {
+                        background-color: #1b5e20;
+                        color: white;
+                        box-shadow: 0 4px 8px rgba(46, 125, 50, 0.2);
+                    }
+                }
+
+                .reject {
+                    background-color: transparent;
+                    color: #d32f2f; // Professional Red
+                    border-color: #d32f2f;
+
+                    &:hover {
+                        background-color: #d32f2f;
+                        color: white;
+                        box-shadow: 0 4px 8px rgba(211, 47, 47, 0.2);
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+
+
+
+
+
+@keyframes drawer {
+    from{
+        transform: translateY(-120%);
+    }
+    to{
+        transform: translateY(0);
+    }
+    
+}

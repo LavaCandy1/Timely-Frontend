@@ -1,30 +1,35 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ExtraClass } from '../../../services/requests/extraClass';
+import { ExtraClassRequest } from '../../../models/extraClass-request';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { EMPTY, of } from 'rxjs';
+import { ExtraClassList } from '../extra-class-list/extra-class-list';
+import { LeaveList } from '../leave-list/leave-list';
+import { RoomChangeList } from '../room-change-list/room-change-list';
 
 @Component({
   selector: 'app-list',
-  imports: [],
+  imports: [FormsModule, ExtraClassList, LeaveList, RoomChangeList],
   templateUrl: './list.html',
   styleUrl: './list.scss'
 })
 export class List {
+  
+  private extraClassService = inject(ExtraClass);
+  // constructor(private extraClassService : ExtraClass) { }
 
-  protected openedRequestId = signal<number | null>(null);
+  requestType = input<string>("");
 
-  protected requests = [
-    {
-      id: 1,name: 'Request 1',description: 'lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel sapien eget nunc efficitur varius. Sed at ligula a enim efficitur commodo. Nulla facilisi. Donec ac odio id nisl convallis tincidunt. Proin in felis sed metus efficitur bibendum. Curabitur ac nunc ut nisl efficitur fermentum.'
-    },{
-      id: 2,name: 'Request 2',description: 'lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel sapien eget nunc efficitur varius. Sed at ligula a enim efficitur commodo. Nulla facilisi. Donec ac odio id nisl convallis tincidunt. Proin in felis sed metus efficitur bibendum. Curabitur ac nunc ut nisl efficitur fermentum.'
-    },{
-      id: 3,name: 'Request 3',description: 'lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel sapien eget nunc efficitur varius. Sed at ligula a enim efficitur commodo. Nulla facilisi. Donec ac odio id nisl convallis tincidunt. Proin in felis sed metus efficitur bibendum. Curabitur ac nunc ut nisl efficitur fermentum.'
-    },
-    ]
-
-  protected openRequest(id: number) {
-    if (this.openedRequestId() === id) {
-      this.openedRequestId.set(null);
-    } else {
-      this.openedRequestId.set(id);
+  requestsResource = rxResource({
+    params: () => ({ type: this.requestType() }), 
+    
+    stream: ({ params }) => {
+      if (!params) return EMPTY;
+      console.log("Fetching requests of type:", params.type);
+      return this.extraClassService.searchAllRequests(params.type);
     }
-  }
+  });
+
+
 }

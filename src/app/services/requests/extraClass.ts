@@ -23,12 +23,12 @@ export class ExtraClass {
 
   }
 
-  searchAllRequests(){
+  searchAllRequests(type: string): Observable<ExtraClassRequest[]> {
     const token = localStorage.getItem('token');
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    const url = `${this.apiUrl}/requests/extraClassRequests`;
+    const url = `${this.apiUrl}/requests/extraClassRequests/${type}`;
     
     return this.http.get<ExtraClassRequest[]>(url, { headers });
 

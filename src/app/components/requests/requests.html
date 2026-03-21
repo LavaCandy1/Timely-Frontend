@@ -2,38 +2,20 @@
     <h1>Requests</h1>
 
     <div class="typeSelector">
-        <div class="typeButton"
+
+        @for (type of requestTypes; track $index) {
+            <div class="typeButton"
                 (mouseenter)="updateCoords($event)" 
                 (mouseleave)="updateCoords($event)"
+                (click)="requestType.set(type)"
             >
-                Extra Class
+                {{type}}
                 <span [ngStyle]="{'top': spanStyle.top, 'left': spanStyle.left}"></span>
-        </div>
-        <div class="typeButton"
-                (mouseenter)="updateCoords($event)" 
-                (mouseleave)="updateCoords($event)"
-            >
-                Room Change
-                <span [ngStyle]="{'top': spanStyle.top, 'left': spanStyle.left}"></span>
-        </div>
-        <div class="typeButton"
-                (mouseenter)="updateCoords($event)" 
-                (mouseleave)="updateCoords($event)"
-            >
-                Leave
-                <span [ngStyle]="{'top': spanStyle.top, 'left': spanStyle.left}"></span>
-        </div>
-        <div class="typeButton"
-                (mouseenter)="updateCoords($event)" 
-                (mouseleave)="updateCoords($event)"
-            >
-                Event
-                <span [ngStyle]="{'top': spanStyle.top, 'left': spanStyle.left}"></span>
-                
-        </div>
+            </div>
+        }
     </div>
     <div class="requestsList">
             
-            <app-list></app-list>
+            <app-list [requestType]="requestType()"></app-list>
     </div>
 </div>

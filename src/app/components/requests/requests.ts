@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Required for [ngStyle]
 import { List } from './list/list';
 
@@ -13,6 +13,9 @@ export class Requests {
     top: '0px',
     left: '0px'
   };
+
+  protected requestType = signal<string>("");
+  protected requestTypes = ['Extra Class', 'Room Change', 'Leave', 'Other'];
 
   updateCoords(event: MouseEvent): void {
     const target = event.currentTarget as HTMLElement;

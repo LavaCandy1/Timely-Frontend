@@ -1,7 +1,6 @@
-import { Component, inject, input, output, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ExtraClass } from '../../../services/requests/extraClass';
-import { ExtraClassRequest } from '../../../models/extraClass-request';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { EMPTY, of } from 'rxjs';
 import { ExtraClassList } from '../extra-class-list/extra-class-list';
@@ -20,9 +19,10 @@ export class List {
   // constructor(private extraClassService : ExtraClass) { }
 
   requestType = input<string>("");
+  refreshTrigger = signal(true);
 
   requestsResource = rxResource({
-    params: () => ({ type: this.requestType() }), 
+    params: () => ({ type: this.requestType(), trigger: this.refreshTrigger() }),
     
     stream: ({ params }) => {
       if (params.type === "") return EMPTY;
@@ -31,5 +31,7 @@ export class List {
     }
   });
 
-
+  triggerRefresh() {
+    this.refreshTrigger.set(!this.refreshTrigger());
+  }
 }

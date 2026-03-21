@@ -8,7 +8,8 @@
         @if (requestsResource.value()) {
             @if (requestType() === 'Extra Class') {
                 <app-extra-class-list 
-                    [listData] = "requestsResource.value()"
+                    [listData] = "requestsResource.value()",
+                    (listReload)="triggerRefresh()"
                 ></app-extra-class-list>
             } @else if (requestType() === 'Leave') {
                 <app-leave-list></app-leave-list>

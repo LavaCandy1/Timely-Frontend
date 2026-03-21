@@ -1,8 +1,7 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { ExtraClass } from '../../../services/requests/extraClass';
 import { ExtraClassRequest } from '../../../models/extraClass-request';
 import { FormsModule } from '@angular/forms';
-import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-extra-class-list',
@@ -14,6 +13,8 @@ export class ExtraClassList {
   private extraClassService = inject(ExtraClass);
 
   protected openedRequestId = signal<number | null>(null);
+
+  listReload = output<void>();
   
 
   protected locations = [
@@ -32,9 +33,8 @@ export class ExtraClassList {
 
   approveRequest(requestId: number) {
     this.extraClassService.approveExtraClassRequest(requestId).subscribe({
-      next: (response) => {
-        console.log('Request approved successfully:', response);
-        // Optionally, refresh the list of requests after approval
+      next: () => {
+        this.listReload.emit();        
       },
       error: (error) => {
         console.error('Error approving request:', error);
@@ -44,9 +44,8 @@ export class ExtraClassList {
   
   rejectRequest(requestId: number) {
     this.extraClassService.rejectExtraClassRequest(requestId).subscribe({
-      next: (response) => {
-        console.log('Request rejected successfully:', response);
-        // Optionally, refresh the list of requests after rejection
+      next: () => {
+        this.listReload.emit();
       },
       error: (error) => {
         console.error('Error rejecting request:', error);

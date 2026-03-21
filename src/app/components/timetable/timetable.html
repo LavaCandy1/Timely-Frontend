@@ -48,7 +48,7 @@
     <div class="extra admin-add-btn" (click)="toggleForm()">
       <i class="fas fa-plus"></i> Add Class
     </div>
-
+    }
 
     <!-- 2. The Form -->
     @if (isFormOpen) {
@@ -84,7 +84,6 @@
           <option value="TUTORIAL">Tutorial</option>
         </select>
       </div>
-
 
       <div class="form-actions">
         <button class="cancel-btn" (click)="toggleForm()">Cancel</button>
@@ -146,7 +145,7 @@
               @if (isCancelled(slot)=== false) {
               <span class="cancel-btn" (click)="cancel(slot)">Cancel Class</span>
               } @else {
-              <span class="extraClass-btn" (click)="extraClass(slot)">ExtraClass</span>
+              <span class="reschedule-btn" (click)="reschedule(slot)">Reschedule</span>
               }
             </div>
             }
@@ -185,7 +184,6 @@
                 <span class="batch1">{{ slot.batches.join(', ') }}</span>
               </div>
             </div>
-
             }
             @if (hoveredSlot === slot) {
             <!-- cancel class button -->
@@ -193,22 +191,14 @@
               @if (isCancelled(slot)=== false) {
               <span class="cancel-btn" (click)="cancel(slot)">Cancel Class</span>
               } @else {
-              <span class="extraClass-btn" (click)="extraClass(slot)">ExtraClass</span>
+              <span class="reschedule-btn" (click)="reschedule(slot)">Reschedule</span>
               }
-              @if (hoveredSlot === slot) {
-              <!-- cancel class button -->
-              <div class="buttons">
-                @if (isCancelled(slot)=== false) {
-                <span class="cancel-btn" (click)="cancel(slot)">Cancel Class</span>
-                } @else {
-                <span class="reschedule-btn" (click)="reschedule(slot)">Reschedule</span>
-                }
-                <span class="delete-btn" (click)="delete(slot)">Delete Class</span>
-              </div>
-              }
-
+              <span class="delete-btn" (click)="delete(slot)">Delete Class</span>
             </div>
             }
+
+          </div>
+          }
         </ng-container>
         }
       </div>

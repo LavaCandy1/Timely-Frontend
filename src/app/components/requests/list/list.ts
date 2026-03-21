@@ -25,7 +25,7 @@ export class List {
     params: () => ({ type: this.requestType() }), 
     
     stream: ({ params }) => {
-      if (!params) return EMPTY;
+      if (params.type === "") return EMPTY;
       console.log("Fetching requests of type:", params.type);
       return this.extraClassService.searchAllRequests(params.type);
     }

@@ -1,75 +1,27 @@
+<div class="listContainer">
 @if (!requestType()) {
     <div class="emptyState">
-        <h2>No Requests</h2>
+        <h2>No Request Type Selected</h2>
         <p>Please select a request type to view the requests.</p>
     </div>
 } @else {
-<div class="listContainer">
-    
-<h3>{{requestType()}} Requests</h3>
-    @if (requestsResource.value(); as requests) {
-        @for (request of requests; track $index) {
-        <div class="requestItem">
-            <div class="requestHeader"
-                (click)="openRequest(request.id)"
-            >
-            <div class="sender">{{request.instructor}}
-            </div>
-            @if(openedRequestId() !== request.id) {
-            <div class="status">{{request.status}}</div>
+    <h3>{{requestType()}} Requests</h3>
+        @if (requestsResource.value()) {
+            @if (requestType() === 'Extra Class') {
+                <app-extra-class-list [listData] = "requestsResource.value()"></app-extra-class-list>
+            } @else if (requestType() === 'Leave') {
+                <app-leave-list></app-leave-list>
+            } @else if (requestType() === 'Room Change') {
+                <app-room-change-list></app-room-change-list>
             }
-            <div class="date">{{request.createdAt}}</div>
-            <div class="arrow" [class.rotated]="openedRequestId() === request.id"> ▼ </div>
+        } @else if (requestsResource.isLoading()) {
+            <div class="loadingState">
+                <p>Loading requests...</p>
             </div>
-            
-            @if(openedRequestId() === request.id) {
-            <div class="details"
-                animate.enter = "open"
-                animate.leave = "close"
-            >
-            <div class="detailItem">
-                <div class="label">Course:</div>
-                <div class="value">{{request.courseCode}} | {{request.slotType}}</div>
+        } @else {
+            <div class="errorState">
+                <p>Failed to load requests. Please try again later.</p>
             </div>
-            <div class="detailItem">
-                <div class="label">For:</div>
-                <div class="value">Batch : {{request.batch}}</div>
-                <div class="value">Group : {{request.group}}</div>
-                <div class="value">Year : {{request.year}}</div>
-            </div>
-            <div class="detailItem">
-                <div class="label">At:</div>
-                <div class="value">{{request.dayOfWeek}} | {{request.startTime}}</div>
-            </div>
-            <div class="detailItem">
-                <div class="label">Status:</div>
-                <div class="value">{{request.status}}</div>
-            </div>
-            <div class="detailItem">
-                <div class="label">Reason:</div>
-                <div class="value">{{request.reason}}</div>
-            </div>
-            <div class="locationInput">
-                <div class="label">Location:</div>
-                <select class="value" [(ngModel)]="request.location">
-                    <option value="" disabled selected>Select location</option>
-                    @for (loc of locations; track $index) {
-                        <option value="{{loc}}">{{loc}}</option>
-                    }
-                </select>
-            </div>
-            <div class="actions">
-                <button class="approve">Approve</button>
-                <button class="reject">Reject</button>
-            </div>
-        </div>
-            }
-        </div>
         }
-    } @else if (requestsResource.isLoading()) {
-        <h1>Loading...</h1>
-    } @else if (requestsResource.error(); as err) {
-        <h1>{{err}}</h1>
-    }
-</div>
 }
+</div>

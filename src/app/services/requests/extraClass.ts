@@ -37,12 +37,12 @@ export class ExtraClass {
 
   // searchForLocationOptions() {}
 
-  approveExtraClassRequest(requestId: number): Observable<any> {
+  approveExtraClassRequest(requestId: number, locName: String): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    const url = `${this.apiUrl}/requests/extraClassRequests/${requestId}/approve`;
+    const url = `${this.apiUrl}/requests/extraClassRequests/${requestId}/approve?location=${locName}`;
 
     return this.http.put<any>(url, {}, { headers }); 
   }

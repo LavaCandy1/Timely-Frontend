@@ -43,14 +43,14 @@
         <div class="locationInput">
             <div class="label">Location:</div>
             <select class="value" [(ngModel)]="request.location">
-                <option value="" disabled selected>Select location</option>
+                <option [ngValue]="null" disabled selected>Select location</option>
                 @for (loc of locations; track $index) {
-                    <option value="{{loc}}">{{loc.roomName}} - (Cap : {{loc.capacity}})</option>
+                    <option [ngValue]="loc.roomName">{{loc.roomName}} - (Cap : {{loc.capacity}})</option>
                 }
             </select>
         </div>
         <div class="actions">
-            <button class="approve" (click)="approveRequest(request.id)">Approve</button>
+            <button class="approve" (click)="approveRequest(request)">Approve</button>
             <button class="reject" (click)="rejectRequest(request.id)">Reject</button>
         </div>
     </div>

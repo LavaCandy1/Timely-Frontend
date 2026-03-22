@@ -28,6 +28,7 @@ export class ExtraClassList {
       this.locations = [];
     } else {
       this.openedRequestId.set(id);
+      this.locations = [];
       this.findAvailableLocations(id);
     }
   }
@@ -49,8 +50,12 @@ export class ExtraClassList {
     });
   });
 
-  approveRequest(requestId: number) {
-    this.extraClassService.approveExtraClassRequest(requestId).subscribe({
+  approveRequest(request: ExtraClassRequest) {
+    if (!request.location || request.location === "") {
+      alert("Please select a location before approving.");
+      return;
+    }
+    this.extraClassService.approveExtraClassRequest(request.id,request.location).subscribe({
       next: () => {
         this.listReload.emit();        
       },

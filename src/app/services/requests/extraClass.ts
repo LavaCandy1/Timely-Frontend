@@ -44,7 +44,7 @@ export class ExtraClass {
     };
     const url = `${this.apiUrl}/requests/extraClassRequests/${requestId}/approve?location=${locName}`;
 
-    return this.http.put<any>(url, {}, { headers }); 
+    return this.http.post<any>(url, {}, { headers }); 
   }
 
   rejectExtraClassRequest(requestId: number): Observable<any> {

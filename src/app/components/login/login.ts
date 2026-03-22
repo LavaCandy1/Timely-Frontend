@@ -45,6 +45,6 @@ export class Login {
       },
     });
 
-    console.log('Login form submitted', this.loginForm.value);
+    // console.log('Login form submitted', this.loginForm.value);
   }
 }

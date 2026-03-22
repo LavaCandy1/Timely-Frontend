@@ -140,6 +140,16 @@
                 //     font-size: 0.85rem;
                 //     color: #5a6a77;
                 // }
+                .label {
+                    font-weight: bold;
+                    font-size: 1.05rem;
+                    color: #5a6a77;
+                }
+
+                .value {
+                    font-size: 0.95rem;
+                    color: #333;
+                }
 
                 select.value {
                     appearance: none; // Removes default browser arrow

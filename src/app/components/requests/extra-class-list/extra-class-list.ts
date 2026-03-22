@@ -2,6 +2,7 @@ import { Component, computed, inject, input, output, signal } from '@angular/cor
 import { ExtraClass } from '../../../services/requests/extraClass';
 import { ExtraClassRequest } from '../../../models/extraClass-request';
 import { FormsModule } from '@angular/forms';
+import { Location } from '../../../models/location.model';
 
 @Component({
   selector: 'app-extra-class-list',
@@ -17,17 +18,17 @@ export class ExtraClassList {
   listReload = output<void>();
   
 
-  protected locations = [
-    'BLA101',
-    'BLA202',];
+  protected locations: Location[] = [];
 
   listData = input<ExtraClassRequest[] | undefined>([]);
 
   protected openRequest(id: number) {
     if (this.openedRequestId() === id) {
       this.openedRequestId.set(null);
+      this.locations = [];
     } else {
       this.openedRequestId.set(id);
+      this.findAvailableLocations(id);
     }
   }
 
@@ -44,7 +45,6 @@ export class ExtraClassList {
       if (aIsPending && !bIsPending) return -1;
       if (!aIsPending && bIsPending) return 1;
       
-      // Optional: Sort by date if both have the same status
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
   });
@@ -67,6 +67,18 @@ export class ExtraClassList {
       },
       error: (error) => {
         console.error('Error rejecting request:', error);
+      }
+    });
+  }
+
+  findAvailableLocations(id: number) {
+    this.extraClassService.getAvailableLocations(id).subscribe({
+      next: (locations) => {
+        this.locations = locations;
+        console.log('Available locations:', this.locations);
+      },
+      error: (error) => {
+        console.error('Error fetching available locations:', error);
       }
     });
   }

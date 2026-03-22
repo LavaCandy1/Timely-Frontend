@@ -45,7 +45,7 @@
             <select class="value" [(ngModel)]="request.location">
                 <option value="" disabled selected>Select location</option>
                 @for (loc of locations; track $index) {
-                    <option value="{{loc}}">{{loc}}</option>
+                    <option value="{{loc}}">{{loc.roomName}} - (Cap : {{loc.capacity}})</option>
                 }
             </select>
         </div>

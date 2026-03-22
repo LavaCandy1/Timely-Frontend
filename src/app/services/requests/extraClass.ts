@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ExtraClassRequest } from '../../models/extraClass-request';
 import { Observable } from 'rxjs';
+import { Location } from '../../models/location.model';
 
 @Injectable({
   providedIn: 'root'
@@ -54,5 +55,15 @@ export class ExtraClass {
     const url = `${this.apiUrl}/requests/extraClassRequests/${requestId}/reject`;
 
     return this.http.put<any>(url, {}, { headers });
+  }
+
+  getAvailableLocations(requestId: number): Observable<Location[]> {
+    const token = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    const url = `${this.apiUrl}/requests/extraClassRequests/${requestId}/availableLocations`;
+
+    return this.http.get<Location[]>(url, { headers });
   }
 }

@@ -4,10 +4,27 @@
         <p>Please select a request type to view the requests.</p>
     </div>
 } @else {
-    <h3>{{requestType()}} Requests</h3>
+    <div class="listHeader">
+        <div class="header">
+            <h3>{{requestType()}} Requests</h3>
+        </div>
+        <button 
+            class="refresh-btn"
+            (click)="triggerRefresh()" title="Refresh List"
+        >
+            <i 
+                class="fa-solid fa-rotate"
+                [ngClass]="{ 'spinning': requestsResource.isLoading() }" 
+            ></i>
+            <span>Refresh</span>
+        </button>
+    </div>
         @if (requestsResource.value()) {
             @if (requestType() === 'Extra Class') {
-                <app-extra-class-list [listData] = "requestsResource.value()"></app-extra-class-list>
+                <app-extra-class-list 
+                    [listData] = "requestsResource.value()",
+                    (listReload)="triggerRefresh()"
+                ></app-extra-class-list>
             } @else if (requestType() === 'Leave') {
                 <app-leave-list></app-leave-list>
             } @else if (requestType() === 'Room Change') {

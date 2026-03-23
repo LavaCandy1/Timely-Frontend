@@ -1,5 +1,5 @@
 <div class="listContainer">
-@for (request of listData(); track $index) {
+@for (request of sortedListData(); track $index) {
     <div class="requestItem">
         <div class="requestHeader"
             (click)="openRequest(request.id)"
@@ -41,18 +41,27 @@
             <div class="value">{{request.reason}}</div>
         </div>
         <div class="locationInput">
-            <div class="label">Location:</div>
-            <select class="value" [(ngModel)]="request.location">
-                <option value="" disabled selected>Select location</option>
-                @for (loc of locations; track $index) {
-                    <option value="{{loc}}">{{loc}}</option>
+            @if (request.status === "APPROVED") {
+                <div class="label">Location approved:</div>
+                <div class="value">{{request.location}}</div>
+            } @else {
+                <div class="label">Location:</div>
+                <select class="value" [(ngModel)]="request.location">
+                    <option [ngValue]="null" disabled selected>Select location</option>
+                    @for (loc of locations; track $index) {
+                        <option [ngValue]="loc.roomName">{{loc.roomName}} - (Cap : {{loc.capacity}})</option>
+                    }
+                </select>
+            }
+        </div>
+        @if (request.status !== "APPROVED") {
+            <div class="actions">
+                <button class="approve" (click)="approveRequest(request)">Approve</button>
+                @if (request.status !== "REJECTED") {
+                <button class="reject" (click)="rejectRequest(request.id)">Reject</button>
                 }
-            </select>
-        </div>
-        <div class="actions">
-            <button class="approve">Approve</button>
-            <button class="reject">Reject</button>
-        </div>
+            </div>
+        }
     </div>
         }
     </div>

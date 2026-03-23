@@ -1,9 +1,8 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, computed, inject, input, output, signal } from '@angular/core';
 import { ExtraClass } from '../../../services/requests/extraClass';
 import { ExtraClassRequest } from '../../../models/extraClass-request';
-import { rxResource } from '@angular/core/rxjs-interop';
-import { EMPTY } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import { Location } from '../../../models/location.model';
 
 @Component({
   selector: 'app-extra-class-list',
@@ -12,21 +11,80 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './extra-class-list.scss'
 })
 export class ExtraClassList {
+  private extraClassService = inject(ExtraClass);
 
   protected openedRequestId = signal<number | null>(null);
+
+  listReload = output<void>();
   
 
-  protected locations = [
-    'BLA101',
-    'BLA202',];
+  protected locations: Location[] = [];
 
   listData = input<ExtraClassRequest[] | undefined>([]);
 
   protected openRequest(id: number) {
     if (this.openedRequestId() === id) {
       this.openedRequestId.set(null);
+      this.locations = [];
     } else {
       this.openedRequestId.set(id);
+      this.locations = [];
+      this.findAvailableLocations(id);
     }
+  }
+
+  readonly sortedListData = computed(() => {
+    const data = this.listData();
+    
+    if (!data) return [];
+
+    return [...data].sort((a, b) => {
+      // Match the exact case of your Type definition
+      const aIsPending = a.status === 'PENDING';
+      const bIsPending = b.status === 'PENDING';
+      
+      if (aIsPending && !bIsPending) return -1;
+      if (!aIsPending && bIsPending) return 1;
+      
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
+  });
+
+  approveRequest(request: ExtraClassRequest) {
+    if (!request.location || request.location === "") {
+      alert("Please select a location before approving.");
+      return;
+    }
+    this.extraClassService.approveExtraClassRequest(request.id,request.location).subscribe({
+      next: () => {
+        this.listReload.emit();        
+      },
+      error: (error) => {
+        console.error('Error approving request:', error);
+      }
+    });
+  }
+  
+  rejectRequest(requestId: number) {
+    this.extraClassService.rejectExtraClassRequest(requestId).subscribe({
+      next: () => {
+        this.listReload.emit();
+      },
+      error: (error) => {
+        console.error('Error rejecting request:', error);
+      }
+    });
+  }
+
+  findAvailableLocations(id: number) {
+    this.extraClassService.getAvailableLocations(id).subscribe({
+      next: (locations) => {
+        this.locations = locations;
+        console.log('Available locations:', this.locations);
+      },
+      error: (error) => {
+        console.error('Error fetching available locations:', error);
+      }
+    });
   }
 }

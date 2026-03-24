@@ -85,12 +85,21 @@
 
       </form>
     </div>
-    <div class="request-box">
-      <h3>Requests Lookup</h3>
-      <button class="sidebar-item" (click)="changeView('requests')">
-        <i class="fas fa-arrow-right"></i>
-      </button>
-    </div>
+
+    <footer>
+      <div class="upload-box">
+        <h3>Upload </h3>
+        <button class="sidebar-item" (click)="changeView('upload')">
+          <i class="fas fa-upload"></i>
+        </button>
+      </div>
+      <div class="request-box">
+        <h3>Requests Lookup</h3>
+        <button class="sidebar-item" (click)="changeView('requests')">
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </footer>
   </div>
   }
 </div>

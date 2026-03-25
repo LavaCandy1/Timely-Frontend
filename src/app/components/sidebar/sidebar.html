@@ -16,8 +16,8 @@
       <div class="divider"></div>
 
       @if (userRole==="ADMIN") {
-      <div class="sidebar-item" (click)="toggleSearch()">   
-        <i class="fas fa-search"></i>
+      <div class="sidebar-item" (click)="toggleSearch()">
+        <i class="fas" [ngClass]="isOpen ? 'fa-chevron-left' : 'fa-search'"></i>
       </div>
 
       <div class="divider"></div>
@@ -40,17 +40,15 @@
       </div>
     </div>
   </div>
-@if (userRole==="ADMIN" && isOpen) {
-  <div 
-    class="search" 
-    [ngClass]="{ open: isOpen && userRole === 'ADMIN' }"
-    animate.enter="searchOpen"
+
+  @if (userRole==="ADMIN" && isOpen) {
+  <div class="search" [ngClass]="{ open: isOpen && userRole === 'ADMIN' }" animate.enter="searchOpen"
     animate.leave="searchClose">
 
     <div class="search-box">
       <h3>Search Timetable</h3>
 
-      <form (ngSubmit)="searchTimetable()">
+      <form class="formItems" (ngSubmit)="searchTimetable()">
         <!-- Search type -->
         <div class="form-group">
           <label for="searchType">Search by:</label>
@@ -62,36 +60,46 @@
 
         <!-- Conditional fields -->
         @if (searchType === 'teacher') {
-          <div class="form-group">
-            <label for="teacherName">Teacher Name:</label>
-            <input id="teacherName" [(ngModel)] = "teacherName" name="teacherName" type="text" placeholder="Enter teacher name" />
-          </div>
+
+        <div class="form-group">
+          <label for="teacherName">Teacher Name:</label>
+          <input id="teacherName" [(ngModel)]="teacherName" name="teacherName" type="text"
+            placeholder="Enter teacher name" />
+        </div>
         }
         <!-- <button type="submit" class="search-item" (click)="searchTimetable()">
           <i class="fas fa-search"></i>
         </button> -->
-        
         @if (searchType === 'batch') {
-          <div class="form-group batch-fields">
-            <label for="year">Year:</label>
-            <input id="year" type="text" [(ngModel)]="year" name="year" placeholder="e.g., 1st, 2nd" />
+        <div class="form-group batch-fields">
+          <label for="year">Year:</label>
+          <input id="year" type="text" [(ngModel)]="year" name="year" placeholder="e.g., 1st, 2nd" />
 
-            <label for="batch">Batch:</label>
-            <input id="batch" [(ngModel)]="batch" name="batch" type="text" placeholder="e.g., A, B, C" />
-          </div>
+          <label for="batch">Batch:</label>
+          <input id="batch" [(ngModel)]="batch" name="batch" type="text" placeholder="e.g., A, B, C" />
+        </div>
         }
         <button type="submit" class="search-item" (click)="searchTimetable(); changeView('timetable')">
           <i class="fas fa-search"></i>
         </button>
-        
+
       </form>
     </div>
-    <div class="request-box">
-      <h3>Requests Lookup</h3>
-      <button class="sidebar-item" (click)="changeView('requests')">
-        <i class="fas fa-arrow-right"></i>
-      </button>
-    </div>
+
+    <footer>
+      <div class="upload-box">
+        <h3>Upload </h3>
+        <button class="sidebar-item" (click)="changeView('upload')">
+          <i class="fas fa-upload"></i>
+        </button>
+      </div>
+      <div class="request-box">
+        <h3>Requests Lookup</h3>
+        <button class="sidebar-item" (click)="changeView('requests')">
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </footer>
   </div>
-}
+  }
 </div>

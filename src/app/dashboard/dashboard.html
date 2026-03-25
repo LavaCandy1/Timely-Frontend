@@ -1,17 +1,16 @@
 <div class="dashboard-layout">
-  <app-sidebar 
-    class="sidebar"  
-    [userRole]="userRole"
-    (viewChanger)="changeView($event)"
-  ></app-sidebar>
+  <app-sidebar class="sidebar" [userRole]="userRole" (viewChanger)="changeView($event)"></app-sidebar>
 
   <main class="main-content">
 
     @if(currentView === 'timetable') {
-      <app-timetable [userRole]="userRole" ></app-timetable>
-    } 
+    <app-timetable [userRole]="userRole"></app-timetable>
+    }
+    @if(currentView === 'upload' && userRole === 'ADMIN') {
+    <app-upload></app-upload>
+    }
     @if (currentView === 'requests' && userRole === 'ADMIN') {
-      <app-requests></app-requests>
+    <app-requests></app-requests>
     }
   </main>
 </div>

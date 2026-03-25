@@ -13,7 +13,7 @@ import { AdminSearchService } from '../../services/timetable/admin-search';
 export class Sidebar {
   @Input() userRole: string | null = null;
 
-  viewChanger =  output<'timetable' | "requests">();
+  viewChanger =  output<'timetable' | "requests" | "upload">();
 
   public isOpen = false; 
   today = new Date();
@@ -25,7 +25,7 @@ export class Sidebar {
   
   
   constructor(private auth: Auth,
-              private adminSearch : AdminSearchService
+              private adminSearch : AdminSearchService,
             ) {}
 
   toggleSearch() {
@@ -50,7 +50,7 @@ export class Sidebar {
     }
   }
 
-  changeView(view: 'timetable' | 'requests') {
+  changeView(view: 'timetable' | 'requests' | 'upload') {
     this.viewChanger.emit(view);
     this.isOpen = false;
   }

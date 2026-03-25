@@ -2,7 +2,7 @@
   position: absolute;
   left: 0;
   top: 0;
-  width: 22rem;
+  // width: 4.5rem;
   height: 100vh;
   transition: width 0.3s ease-in-out;
   display: flex;
@@ -105,7 +105,7 @@
   .search {
     backdrop-filter: blur(10px);
     background: #4B6382;
-    width: 22rem;
+    width: 12rem;
     // height: 100vh;
     display: flex;
     flex-direction: column;

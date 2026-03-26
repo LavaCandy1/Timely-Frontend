@@ -265,23 +265,27 @@
     }
 
     .batches {
-      display: flex;
+      position: relative;
+      display: inline-flex;
       justify-content: center;
       gap: 0.25rem;
-      position: relative;
-      &:hover {
-        .all-batches {
-          display: block;
-          top: -100%;
-          left: 203%;
-        }
+      cursor: pointer;
+
+      &:hover .all-batches {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, -110%);
       }
     }
+
     .all-batches {
-      display: none;
       position: absolute;
-      width: 20rem;
-      transform: translateX(-35%);
+      top: 0;
+      left: 50%;
+
+      max-width: 20rem;
+      width: max-content;
+      white-space: normal;
       background: #eaeaea;
       color: #777;
       padding: 0.5rem 0.75rem;
@@ -289,6 +293,14 @@
       font-size: 0.85rem;
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
       z-index: 1000;
+
+      /* Smooth visibility */
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(-50%, -90%);
+      transition: all 0.2s ease;
+
+      pointer-events: none;
     }
     .buttons {
       margin-top: 0.3rem;

@@ -126,15 +126,13 @@
             <span>{{ slot.location }}</span>
             <!-- batches -->
             <div class="batches">
-              @if (slot.batches.length > 0) {
-              <span>{{ slot.batches[0] }}, </span>
-              } @if (slot.batches.length > 2) {
-              <span>{{ slot.batches[1] }}, </span>
-              } @if (slot.batches.length > 3) {
-              <span> ... , </span>
-              } @if (slot.batches.length > 1) {
-              <span>{{ slot.batches[slot.batches.length - 1] }}</span>
-              } @if (slot.batches.length > 2) {}
+              <span>
+                {{ slot.batches.slice(0, 2).join(', ') }}
+                @if (slot.batches.length > 3) {
+                , ...}
+                @if (slot.batches.length > 2) {
+                  , {{ slot.batches[slot.batches.length - 1] }}}
+              </span>
               <div class="all-batches">
                 <span class="batch1">{{ slot.batches.join(', ') }}</span>
               </div>
@@ -169,15 +167,13 @@
             @if (searchType === "TEACHER") {
             <!-- Batches Display (Same logic as Teacher) -->
             <div class="batches">
-              @if (slot.batches.length > 0) {
-              <span>{{ slot.batches[0] }}</span><span *ngIf="slot.batches.length > 1">, </span>
-              } @if (slot.batches.length > 2) {
-              <span>{{ slot.batches[1] }}, </span>
-              } @if (slot.batches.length > 3) {
-              <span> ... , </span>
-              } @if (slot.batches.length > 1) {
-              <span>{{ slot.batches[slot.batches.length - 1] }}</span>
-              }
+              <span>
+                {{ slot.batches.slice(0, 2).join(', ') }}
+                @if (slot.batches.length > 3) {
+                , ...}
+                @if (slot.batches.length > 2) {
+                  , {{ slot.batches[slot.batches.length - 1] }}}
+              </span>
 
               <!-- Hover/Tooltip for all batches -->
               <div class="all-batches">

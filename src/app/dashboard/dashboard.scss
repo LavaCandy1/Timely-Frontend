@@ -12,7 +12,7 @@
 /* ---------- MAIN CONTENT ---------- */
 .main-content {
   flex: 1; // ✅ takes all remaining space
-  height: 100vh;
+  // height: 100vh;
   padding: 1rem 2rem 1rem 1.5rem;
   overflow-y: auto;
   overflow-x: hidden; // extra safety for overflow

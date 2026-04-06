@@ -167,13 +167,13 @@
             @if (searchType === "TEACHER") {
             <!-- Batches Display (Same logic as Teacher) -->
             <div class="batches">
-              <span>
+              <div class="show-batches">
                 {{ slot.batches.slice(0, 2).join(', ') }}
                 @if (slot.batches.length > 3) {
                 , ...}
                 @if (slot.batches.length > 2) {
                   , {{ slot.batches[slot.batches.length - 1] }}}
-              </span>
+              </div>
 
               <!-- Hover/Tooltip for all batches -->
               <div class="all-batches">

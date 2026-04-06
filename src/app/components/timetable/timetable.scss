@@ -185,7 +185,7 @@
       --x-multiplier: 20;
       --y-multiplier: 25;
       // z-index: 100;
-      // div k neeche wale borders use krne hai jisse line upr na aay 
+      // div k neeche wale borders use krne hai jisse line upr na aay  -- not happening as of right now 6/3/26
     }
   }
 
@@ -193,6 +193,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     color: #000000;
     font-size: 0.8rem;
     padding: 0.25rem;
@@ -233,10 +234,10 @@
       transform: scale(1.1);
       box-shadow: 0 0 10px rgba(0, 0, 0.02);
       z-index: 10 !important;
-      .batches {
-        opacity: 1;
-        visibility: visible;
-      }
+      // .batches {
+      //   opacity: 1;
+      //   visibility: visible;
+      // }
     }
     &.teacher:hover, &.admin:hover {
       transform: translate(
@@ -270,6 +271,7 @@
       justify-content: center;
       gap: 0.25rem;
       cursor: pointer;
+      width: max-content;
 
       &:hover .all-batches {
         opacity: 1;
@@ -305,6 +307,7 @@
     .buttons {
       margin-top: 0.3rem;
       display: flex;
+      flex-wrap: wrap;
 
       justify-content: center;
       align-items: center;

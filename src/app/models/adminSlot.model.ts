@@ -1,6 +1,7 @@
 export type SlotType = 'LECTURE' | 'LAB' | 'TUTORIAL';
 
 export interface AdminSlot {
+  ids: string[];
   courseCode: string;
   startTime: string;  // e.g., "13:30:00"
   dayOfWeek: string;  // e.g., "Monday", "Tuesday"
@@ -14,6 +15,7 @@ export interface AdminSlot {
 // Optional: a helper function to convert comma-separated batches to an array
 export function mapToAdminSlot(dto: any): AdminSlot {
   return {
+    ids: dto.ids ? dto.ids.split(',') : [],
     courseCode: dto.courseCode,
     startTime: dto.startTime,
     dayOfWeek: dto.dayOfWeek,

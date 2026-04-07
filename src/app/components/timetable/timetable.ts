@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, resource } from '@angular/core';
 import { TimetableService } from '../../services/timetable/timetable';
 import { ClassSlot, SlotType } from '../../models/class-slot.model';
 import { TeacherSlot } from '../../models/teacherSlot.model';
@@ -9,12 +9,14 @@ import { Subscription } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { ExtraClassRequest } from '../../models/extraClass-request';
 import { ExtraClass } from '../../services/requests/extraClass';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-timetable',
+  standalone: true,
   templateUrl: './timetable.html',
   styleUrls: ['./timetable.scss'],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatSnackBarModule],
 })
 export class TimeTableComponent implements OnInit {
 
@@ -27,6 +29,8 @@ export class TimeTableComponent implements OnInit {
 
   // needs for add class form
   isFormOpen: boolean = false; 
+  isEditFormOpen: boolean = false;
+  editClassIds: string[] = [];
   newClass: Partial<ClassSlot> = {
     courseCode: '',
     instructor: '',
@@ -85,14 +89,15 @@ export class TimeTableComponent implements OnInit {
 
   constructor(private timetableService: TimetableService,
               private adminSearch : AdminSearchService,
-              private extraClassService : ExtraClass
+              private extraClassService : ExtraClass,
+              private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
     if (this.userRole === 'TEACHER') {
       this.timetableService.getWeekTimetableTeacher().subscribe((data) => {
         this.allClassSlotsTeacher = data;
-        console.log(this.allClassSlotsTeacher);
+        // console.log(this.allClassSlotsTeacher);
       });
     } else if (this.userRole === 'STUDENT') {
       this.timetableService.getWeekTimetableStudent().subscribe((data) => {
@@ -100,6 +105,7 @@ export class TimeTableComponent implements OnInit {
       });
     } else if (this.userRole === 'ADMIN') {
       this.subscribeToAdminSearch();
+      //TODO try to use this to update the page when adding a class
     }
   }
 
@@ -113,11 +119,13 @@ export class TimeTableComponent implements OnInit {
         this.searchType = state.type;
         this.timetableService.getBatchTimetableForAdmin(state.year || 'Empty' , state.value).subscribe(data => {
           this.allClassSlotsAdmin = data;
+          console.log("Admin Batch Search Result:", this.allClassSlotsAdmin);
         });
       } else if (state.type === 'TEACHER') {
         this.searchType = state.type;
         this.timetableService.getWeekTimetableTeacherForAdmin(state.value).subscribe(data => {
           this.allClassSlotsAdmin = data;
+          console.log("Admin Teacher Search Result:", this.allClassSlotsAdmin);
         });
       }
     });
@@ -187,29 +195,47 @@ export class TimeTableComponent implements OnInit {
     slot.cancelledDate = cancelledDate.toISOString().split('T')[0];
 
     this.timetableService.cancelClass(slot).subscribe(response => { 
-      console.log('Class cancelled successfully', response);
+      // console.log('Class cancelled successfully', response);
+      this.snackBar.open('Class cancelled successfully', 'Close', {
+        duration: 3000
+      });
       
     }, error => {
       console.error('Error cancelling class', error);
+      this.snackBar.open('Failed to cancel class', 'Close', {
+        duration: 3000
+      });
     });
   }
 
-  reschedule(slot: TeacherSlot): void {
+  reinstate(slot: TeacherSlot): void {
 
     slot.cancelledDate = null;
     this.timetableService.cancelClass(slot).subscribe(response => { 
-      console.log('Class cancelled successfully', response);
+      // console.log('Class cancelled successfully', response);
+      this.snackBar.open('Class reinstated successfully', 'Close', {
+        duration: 3000
+      });
       
     }, error => {
       console.error('Error cancelling class', error);
+      this.snackBar.open('Failed to reinstate class', 'Close', {
+        duration: 3000
+      });
     });
   }
   
   delete(slot: AdminSlot): void {
     this.timetableService.deleteClass(slot).subscribe(response => {
       console.log('Class deleted successfully', response);
+      this.snackBar.open('Class deleted successfully', 'Close', {
+        duration: 3000
+      });
     }, error => {
       console.error('Error deleting class', error);
+      this.snackBar.open('Failed to delete class', 'Close', {
+        duration: 3000
+      });
     });
   }
 
@@ -219,15 +245,17 @@ export class TimeTableComponent implements OnInit {
   
   //add class methods
   submitAddClass() {
-    console.log("Submitting:", this.newClass);
+    // console.log("Submitting:", this.newClass);
 
     // Sending form data directly as requested
     this.timetableService.addClass(this.newClass).subscribe({
       next: (res) => {
-        console.log("Class Added Successfully", res);
+        // console.log("Class Added Successfully", res);
         this.isFormOpen = false;
         this.resetForm();
-        
+        this.snackBar.open('Class Added Successfully', 'Close', {
+          duration: 3000
+        });
         // Optional: refresh logic if you want to see the new class immediately
         if (this.searchType === 'BATCH' && this.newClass.batch && this.newClass.year) {
            // Trigger a refresh manually if needed, or rely on user to search again
@@ -235,25 +263,35 @@ export class TimeTableComponent implements OnInit {
       },
       error: (err) => {
         console.error("Error adding class", err);
+        this.snackBar.open('Failed to add class', 'Close', {
+          duration: 3000
+        });
+        this.resetForm();
       }
     });
   }
 
   // extra request methods
   sumbmitExtraClassRequest(): void {
-    // const newRequest = this.requestForm.value;
-    //implement the logic to submit the extraClass request using the ExtraClass service
-    console.log("Submitting ExtraClass Request:", this.newRequest);
+    // console.log("Submitting ExtraClass Request:", this.newRequest);
     this.isFormOpen = false;
     // this.resetForm();
 
     //submit the request to backend
     this.extraClassService.createExtraClassRequest(this.newRequest as ExtraClassRequest).subscribe({
       next: (res) => {
-        console.log("ExtraClass Request Submitted Successfully /n ", res);
+        // console.log("ExtraClass Request Submitted Successfully /n ", res);
+        this.snackBar.open('Extra Class Request Submitted Successfully', 'Close', {
+          duration: 3000
+        });
+        this.resetForm();
       },
       error: (err) => {
         console.error("Error submitting extraClass request", err);
+        this.snackBar.open('Failed to submit Extra Class Request', 'Close', {
+          duration: 3000
+        });
+        this.resetForm();
       }
     });
 
@@ -283,6 +321,52 @@ export class TimeTableComponent implements OnInit {
     };
   }
 
+  editFormToggle(adminSlot?: AdminSlot) {
+    
+    if (adminSlot && !this.isEditFormOpen) {
+      this.isEditFormOpen = !this.isEditFormOpen;
+      this.newClass = {
+        courseCode: adminSlot.courseCode,
+        instructor: adminSlot.instructor,
+        batch: adminSlot.batches.length > 0 ? adminSlot.batches.join(', ') : 'No Batches',
+        year: '', // Year is not provided in AdminSlot, you may need to adjust this
+        group: '', // Group is not provided in AdminSlot, you may need to adjust this
+        slotType: adminSlot.slotType,
+        dayOfWeek: adminSlot.dayOfWeek,
+        startTime: adminSlot.startTime ? adminSlot.startTime.slice(0, 5) : '', // Assuming startTime is in "HH:MM:SS" format, we take only "HH:MM"
+        location: adminSlot.location
+      };
+      this.editClassIds = adminSlot.ids;
+    } else {
+      this.isEditFormOpen = !this.isEditFormOpen;
+      this.resetForm();
+      this.editClassIds = [];
+    }
+  }
+  isUpdatingClass: boolean = false;
+  updateClass(): void {
+    if (this.isUpdatingClass) return; // Prevent multiple simultaneous updates\
+    
+    this.isUpdatingClass = true;
+    this.timetableService.updateClass(this.editClassIds, this.newClass).subscribe({
+      next: () => {
+        this.isEditFormOpen = false;
+        this.resetForm();
+        this.snackBar.open('Class updated successfully', 'Close', {
+          duration: 3000
+        });
+        this.isUpdatingClass = false;
+      },
+      error: (err) => {
+        console.error("Error updating class", err);
+        this.snackBar.open('Failed to update class', 'Close', {
+          duration: 3000
+        });
+        this.isUpdatingClass = false;
+      }
+    });
+
+  }
   
 
 }

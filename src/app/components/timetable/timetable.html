@@ -143,7 +143,7 @@
               @if (isCancelled(slot)=== false) {
               <span class="cancel-btn" (click)="cancel(slot)">Cancel Class</span>
               } @else {
-              <span class="reschedule-btn" (click)="reschedule(slot)">Reschedule</span>
+              <span class="reinstate-btn" (click)="reinstate(slot)">Reschedule</span>
               }
             </div>
             }
@@ -187,9 +187,10 @@
               @if (isCancelled(slot)=== false) {
               <span class="cancel-btn" (click)="cancel(slot)">Cancel Class</span>
               } @else {
-              <span class="reschedule-btn" (click)="reschedule(slot)">Reschedule</span>
+              <span class="reinstate-btn" (click)="reinstate(slot)">Reinstate</span>
               }
               <span class="delete-btn" (click)="delete(slot)">Delete Class</span>
+              <span class="edit-btn" (click)="editFormToggle(slot)">Edit Class</span>
             </div>
             }
 
@@ -200,4 +201,52 @@
       </div>
     </div>
   </div>
+  @if (isEditFormOpen) {
+    <div class="editClassForm">
+        <h3>Edit Class Slot</h3>
+        <div class="form-grid">
+          <!-- Row 1 -->
+          <input type="text" placeholder="Course Code (e.g. CSET101)" [(ngModel)]="newClass.courseCode">
+          <input type="text" placeholder="Instructor Name" [(ngModel)]="newClass.instructor">
+  
+          <!-- Row 2: Batch Details -->
+          <div class="input-group">
+            <input type="text" placeholder="Batch (B1)" [(ngModel)]="newClass.batch" disabled>
+            <input type="text" placeholder="Group (G1)" [(ngModel)]="newClass.group" disabled>
+            <input type="text" placeholder="Year (4th)" [(ngModel)]="newClass.year" disabled>
+          </div>
+  
+          <!-- Row 3: Location -->
+          <input type="text" placeholder="Location (e.g. 102-LH)" [(ngModel)]="newClass.location">
+  
+          <!-- Row 4: Dropdowns -->
+          <select [(ngModel)]="newClass.dayOfWeek">
+            @for (d of fullDays; track $index) {
+              <option [value]="d">{{d}}</option>
+            }
+          </select>
+  
+          <select [(ngModel)]="newClass.startTime">
+            @for (t of times; track $index) {
+              <option [value]="t">{{t}}</option>
+            }
+          </select>
+  
+          <select [(ngModel)]="newClass.slotType">
+            <option value="LECTURE">Lecture</option>
+            <option value="LAB">Lab</option>
+            <option value="TUTORIAL">Tutorial</option>
+          </select>
+        </div>
+  
+        <div class="form-actions">
+          <button class="cancel-btn" (click)="editFormToggle()">Cancel</button>
+          <button 
+          class="submit-btn" 
+          (click)="updateClass()"
+          [disabled]="isUpdatingClass"
+          >{{ isUpdatingClass ? 'Updating...' : 'Update' }}</button>
+        </div>
+    </div>
+  }
 </div>

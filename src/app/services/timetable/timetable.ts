@@ -107,12 +107,12 @@ export class TimetableService {
     return this.http.post<void>(url, slot, { headers });
   }
 
-  updateClass(ids: string[], slot: any): Observable<void> {
+  updateClass(ids: string[], slot: any): Observable<number> {
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
     const url = `${this.apiUrl}/timetable/admin/updateClass`;
 
-    return this.http.post<void>(url,{ ids , slot }, { headers });
+    return this.http.post<number>(url,{ ids , slot }, { headers });
   }
 }
 

@@ -349,12 +349,15 @@ export class TimeTableComponent implements OnInit {
     
     this.isUpdatingClass = true;
     this.timetableService.updateClass(this.editClassIds, this.newClass).subscribe({
-      next: () => {
+      next: (res) => {
         this.isEditFormOpen = false;
         this.resetForm();
-        this.snackBar.open('Class updated successfully', 'Close', {
+        const message = res === 1 
+        ? `${res} Class updated successfully` 
+        : `${res} Classes updated successfully`;
+        this.snackBar.open(message, 'Close', { 
           duration: 3000
-        });
+        })
         this.isUpdatingClass = false;
       },
       error: (err) => {

@@ -9,7 +9,12 @@
     </div>
 
     <div class="compact-actions">
-      <span class="compact-chip">System Online</span>
+      <span
+        class="compact-chip"
+        [ngClass]="systemStatusTone()"
+      >
+        {{ systemStatusLabel() }}
+      </span>
       <a routerLink="/login" class="compact-outline-btn">Login</a>
       <a routerLink="/signup" class="compact-filled-btn">Signup</a>
     </div>
@@ -30,9 +35,18 @@
   <main class="home-content">
     <section class="hero-grid">
       <div class="hero-copy">
-        <div class="hero-status">
-          <span class="status-dot"></span>
-          <span>System Online</span>
+        <div
+          class="hero-status"
+          [ngClass]="systemStatusTone()"
+          [style.color]="systemStatusTextColor()"
+        >
+          <span
+            class="status-dot"
+            [style.background]="systemStatusColor()"
+            [style.box-shadow]="systemStatusShadow()"
+            [style.animation]="systemStatusAnimation()"
+          ></span>
+          <span>{{ systemStatusLabel() }}</span>
         </div>
         <p class="section-tag">Live Distribution Hub</p>
         <h2>Your Academic Schedule, Synchronized and Served.</h2>

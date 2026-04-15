@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, PLATFORM_ID, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { catchError, concat, interval, of, startWith, switchMap } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
+import { SystemHealthService } from '../../services/system-health/system-health';
 
 type SlotPreview = {
   day: string;
@@ -10,6 +14,8 @@ type SlotPreview = {
   type: 'lecture' | 'tutorial' | 'lab';
 };
 
+type SystemStatus = 'checking' | 'online' | 'offline';
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -18,7 +24,84 @@ type SlotPreview = {
   styleUrl: './home.scss',
 })
 export class Home {
+  private readonly systemHealthService = inject(SystemHealthService);
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly isBrowser = isPlatformBrowser(this.platformId);
+  private readonly systemStatus$ = this.isBrowser
+    ? concat(of(0), interval(30000)).pipe(
+        switchMap(() =>
+          this.systemHealthService.checkHealth().pipe(
+            startWith('checking' as const),
+            catchError(() => of('offline' as const))
+          )
+        )
+      )
+    : of('checking' as const);
+
   isCompactRibbonVisible = false;
+  readonly systemStatus = toSignal(this.systemStatus$, { requireSync: true });
+  readonly systemStatusLabel = computed(() => {
+    const status = this.systemStatus();
+
+    if (status === 'online') {
+      return 'System Online';
+    }
+
+    if (status === 'offline') {
+      return 'System Offline';
+    }
+
+    return 'Checking System';
+  });
+  readonly systemStatusTone = computed(() => {
+    const status = this.systemStatus();
+
+    if (status === 'online') {
+      return 'online';
+    }
+
+    if (status === 'offline') {
+      return 'offline';
+    }
+
+    return 'checking';
+  });
+  readonly systemStatusColor = computed(() => {
+    const status = this.systemStatus();
+
+    if (status === 'offline') {
+      return '#c86c67';
+    }
+
+    if (status === 'checking') {
+      return '#d1a14a';
+    }
+
+    return '#79c7a3';
+  });
+  readonly systemStatusShadow = computed(() => {
+    if (this.systemStatus() === 'online') {
+      return '0 0 0 rgba(121, 199, 163, 0.4)';
+    }
+
+    return 'none';
+  });
+  readonly systemStatusAnimation = computed(() =>
+    this.systemStatus() === 'online' ? 'livePulse 1.8s ease-out infinite' : 'none'
+  );
+  readonly systemStatusTextColor = computed(() => {
+    const status = this.systemStatus();
+
+    if (status === 'offline') {
+      return '#8a433f';
+    }
+
+    if (status === 'checking') {
+      return '#6c5e49';
+    }
+
+    return '#1b2b45';
+  });
 
   readonly quickStats = [
     { value: 'Real-time Sync', label: 'Backend-served timetable distribution' },

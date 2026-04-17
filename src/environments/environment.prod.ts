@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://your-production-api.com/api', // Your deployed backend URL
+  apiUrl: 'https://timely-api.lavacandy.me/api', // Your deployed backend URL
 };

@@ -2,13 +2,13 @@
   <div class="sidebar-main">
     <!-- Top Section -->
     <div class="upper-items">
-      <div class="sidebar-item">
-        <i class="fas fa-user"></i>
-      </div>
+      <a class="logo" href="/" title="Back to Timely mainpage">
+        <img src="/Favicon Timely.svg" alt="Timely Mark" width="32" height="32" alt="Timely"/>
+      </a>
 
       <div class="divider"></div>
 
-      <div class="sidebar-item text-item">
+      <div class="sidebar-item text-item" [title]="today | date:'fullDate'">
         <span>{{ today | date : 'EEE' }}</span>
         <span>{{ today | date : 'dd' }}/{{ today | date : 'MM' }}</span>
       </div>
@@ -16,7 +16,7 @@
       <div class="divider"></div>
 
       @if (userRole==="ADMIN") {
-      <div class="sidebar-item" (click)="toggleSearch()">
+      <div class="sidebar-item" (click)="toggleSearch()" title="Search menu">
         <i class="fas" [ngClass]="isOpen ? 'fa-chevron-left' : 'fa-search'"></i>
       </div>
 
@@ -35,9 +35,9 @@
 
       <div class="divider"></div>
 
-      <div class="sidebar-item" (click)="logout()">
+      <a class="sidebar-item" (click)="logout()" href="/" title="logout">
         <i class="fas fa-sign-out-alt"></i>
-      </div>
+      </a>
     </div>
   </div>
 

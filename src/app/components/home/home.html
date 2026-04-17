@@ -1,3 +1,192 @@
-<p>home works!</p>
-<a href="/login">Login</a>
-<a href="/signup">Signup</a>
+<div class="home-page">
+  <div class="compact-ribbon" [class.visible]="isCompactRibbonVisible">
+    <div class="compact-brand">
+      <!-- <span class="compact-mark"> -->
+        <img src="/Favicon Timely.svg" alt="Timely Mark" width="40" height="40" />
+      <!-- </span> -->
+      <div class="compact-copy">
+        <span class="compact-label">Timely</span>
+        <span class="compact-subtitle">Academic Scheduling Workspace</span>
+      </div>
+    </div>
+
+    <div class="compact-actions">
+      <span
+        class="compact-chip"
+        [ngClass]="systemStatusTone()"
+      >
+        {{ systemStatusLabel() }}
+      </span>
+      <a routerLink="/login" class="compact-outline-btn">Login</a>
+      <a routerLink="/signup" class="compact-filled-btn">Signup</a>
+    </div>
+  </div>
+
+  <header class="top-ribbon">
+    <div class="brand-lockup">
+      <p class="eyebrow">Academic Scheduling Workspace</p>
+      <h1>Timely</h1>
+    </div>
+
+    <nav class="ribbon-actions">
+      <a routerLink="/login" class="outline-btn">Login</a>
+      <a routerLink="/signup" class="filled-btn">Signup</a>
+    </nav>
+  </header>
+
+  <main class="home-content">
+    <section class="hero-grid">
+      <div class="hero-copy">
+        <div
+          class="hero-status"
+          [ngClass]="systemStatusTone()"
+          [style.color]="systemStatusTextColor()"
+        >
+          <span
+            class="status-dot"
+            [style.background]="systemStatusColor()"
+            [style.box-shadow]="systemStatusShadow()"
+            [style.animation]="systemStatusAnimation()"
+          ></span>
+          <span>{{ systemStatusLabel() }}</span>
+        </div>
+        <p class="section-tag">Live Distribution Hub</p>
+        <h2>Your Academic Schedule, Synchronized and Served.</h2>
+        <p class="hero-text">
+          Timely acts as the single source of truth for academic schedule delivery. Instead of
+          outdated PDFs and disconnected notices, timetable updates are served from the backend,
+          administrative changes propagate instantly, and reschedule requests are managed in a
+          formal tracked flow.
+        </p>
+
+        <div class="hero-actions">
+          <a routerLink="/login" class="filled-btn">Enter Workspace</a>
+          <a routerLink="/signup" class="outline-btn">Request Access</a>
+        </div>
+
+        <div class="quick-stats">
+          @for (stat of quickStats; track stat.label) {
+            <article class="stat-item">
+              <strong>{{ stat.value }}</strong>
+              <span>{{ stat.label }}</span>
+            </article>
+          }
+        </div>
+      </div>
+
+      <aside class="flow-panel">
+        <div class="panel-head">
+          <h3>Management Lifecycle</h3>
+          <span class="panel-pill">Live Operations</span>
+        </div>
+
+        <div class="flow-list">
+          <article>
+            <span class="step-no">01</span>
+            <div>
+              <h4>Role-Based Entry</h4>
+              <p>Students, faculty, and admins enter the same system through controlled workspace access.</p>
+            </div>
+          </article>
+          <article>
+            <span class="step-no">02</span>
+            <div>
+              <h4>Real-Time Synchronization</h4>
+              <p>Published timetable updates, room changes, and class additions are served as the current schedule state.</p>
+            </div>
+          </article>
+          <article>
+            <span class="step-no">03</span>
+            <div>
+              <h4>Request Resolution</h4>
+              <p>Reschedule, leave, and room-change requests are resolved against the same verified timetable dataset.</p>
+            </div>
+          </article>
+        </div>
+      </aside>
+    </section>
+
+    <section class="info-grid">
+      <article class="tutorials-panel">
+        <div class="panel-title">
+          <div>
+            <p class="section-tag">Operational Use</p>
+            <h3>Distribution Workflows</h3>
+          </div>
+          <a routerLink="/dashboard" class="outline-btn small-btn">Open Dashboard</a>
+        </div>
+
+        <div class="tutorial-list">
+          @for (tutorial of tutorials; track tutorial.title) {
+            <div class="tutorial-row">
+              <h4>{{ tutorial.title }}</h4>
+              <p>{{ tutorial.description }}</p>
+            </div>
+          }
+        </div>
+      </article>
+
+      <article class="legend-panel">
+        <div class="panel-title">
+          <div>
+            <p class="section-tag">Standardized Classification</p>
+            <h3>Session Type Mapping</h3>
+          </div>
+        </div>
+
+        <div class="legend-list">
+          @for (legend of legends; track legend.title) {
+            <div class="legend-row">
+              <div class="legend-chip" [ngClass]="legend.type">{{ legend.title }}</div>
+              <div class="legend-copy">
+                <strong>{{ legend.subtitle }}</strong>
+                <span>{{ legend.slot }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      </article>
+    </section>
+
+    <section class="preview-panel">
+      <div class="panel-title preview-title">
+        <div>
+          <p class="section-tag">Preview</p>
+          <h3>Weekly timetable snapshot</h3>
+        </div>
+        <a routerLink="/login" class="filled-btn small-btn">Open Current View</a>
+      </div>
+
+      <div class="preview-month">
+        <h4>April 2026</h4>
+        <span class="service-label">Current View: Engineering Cluster - Semester 6</span>
+      </div>
+
+      <div class="timetable-preview">
+        <div class="row header-row">
+          <div class="time-cell"></div>
+          @for (day of days; track day) {
+            <div class="day-cell">{{ day }}</div>
+          }
+        </div>
+
+        @for (time of times; track time) {
+          <div class="row">
+            <div class="time-cell">{{ time }}</div>
+
+            @for (day of days; track day) {
+              <div class="cell">
+                @if (getSlot(day, time); as slot) {
+                  <div class="class-card" [ngClass]="slot.type">
+                    <span class="course">{{ slot.courseCode }}</span>
+                    <span class="location">{{ slot.room }}</span>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </section>
+  </main>
+</div>

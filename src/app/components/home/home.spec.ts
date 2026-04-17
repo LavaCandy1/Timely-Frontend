@@ -1,6 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 
 import { Home } from './home';
+import { SystemHealthService } from '../../services/system-health/system-health';
+
+class SystemHealthServiceStub {
+  checkHealth() {
+    return of('online' as const);
+  }
+}
 
 describe('Home', () => {
   let component: Home;
@@ -8,7 +16,8 @@ describe('Home', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Home]
+      imports: [Home],
+      providers: [{ provide: SystemHealthService, useClass: SystemHealthServiceStub }],
     })
     .compileComponents();
 

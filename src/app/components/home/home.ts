@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, PLATFORM_ID, computed, inject } from '@angular/core';
+import { Component, HostListener, PLATFORM_ID, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { catchError, concat, interval, of, startWith, switchMap } from 'rxjs';
+import { take } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { SystemHealthService } from '../../services/system-health/system-health';
 
@@ -27,19 +26,9 @@ export class Home {
   private readonly systemHealthService = inject(SystemHealthService);
   private readonly platformId = inject(PLATFORM_ID);
   private readonly isBrowser = isPlatformBrowser(this.platformId);
-  private readonly systemStatus$ = this.isBrowser
-    ? concat(of(0), interval(30000)).pipe(
-        switchMap(() =>
-          this.systemHealthService.checkHealth().pipe(
-            startWith('checking' as const),
-            catchError(() => of('offline' as const))
-          )
-        )
-      )
-    : of('checking' as const);
 
   isCompactRibbonVisible = false;
-  readonly systemStatus = toSignal(this.systemStatus$, { requireSync: true });
+  readonly systemStatus = signal<SystemStatus>('checking');
   readonly systemStatusLabel = computed(() => {
     const status = this.systemStatus();
 
@@ -102,12 +91,25 @@ export class Home {
 
     return '#1b2b45';
   });
+  readonly systemStatusActionLabel = computed(() => {
+    if (this.systemStatus() === 'checking') {
+      return 'Checking...';
+    }
+
+    return 'Refresh system health';
+  });
 
   readonly quickStats = [
     { value: 'Real-time Sync', label: 'Backend-served timetable distribution' },
     { value: 'Verified Rooms', label: 'Room allocations aligned with current updates' },
     { value: 'Zero-Conflict', label: 'Managed release of schedule changes and requests' },
   ];
+
+  constructor() {
+    if (this.isBrowser) {
+      this.refreshSystemStatus(true);
+    }
+  }
 
   readonly tutorials = [
     {
@@ -199,6 +201,21 @@ export class Home {
   @HostListener('window:scroll')
   onWindowScroll(): void {
     this.isCompactRibbonVisible = window.scrollY > 140;
+  }
+
+  refreshSystemStatus(force = false): void {
+    if (!this.isBrowser || (!force && this.systemStatus() === 'checking')) {
+      return;
+    }
+
+    this.systemStatus.set('checking');
+    this.systemHealthService
+      .checkHealth()
+      .pipe(take(1))
+      .subscribe({
+        next: (status) => this.systemStatus.set(status),
+        error: () => this.systemStatus.set('offline'),
+      });
   }
 
   getSlot(day: string, time: string): SlotPreview | undefined {

@@ -4,6 +4,8 @@ Timely is a modern, responsive web application built with **Angular 17+** design
 
 This application features a dynamic, grid-based timetable view, authentication handling, and specific administrative controls for managing class schedules in real-time.
 
+Live link - [timely.lavacandy.me](https://timely.lavacandy.me)
+
 Backend Repository: [Timely Backend (Spring Boot)](https://github.com/LavaCandy1/Timely)
 ## Features
 

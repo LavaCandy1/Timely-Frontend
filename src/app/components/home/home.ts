@@ -68,6 +68,32 @@ export class Home {
 
     return '#79c7a3';
   });
+  readonly systemStatusBackgroundColor = computed(() => {
+    const status = this.systemStatus();
+
+    if (status === 'offline') {
+      return 'rgba(200, 108, 103, 0.18)';
+    }
+
+    if (status === 'checking') {
+      return 'rgba(209, 161, 74, 0.18)';
+    }
+
+    return 'rgba(121, 199, 163, 0.2)';
+  });
+  readonly systemStatusBorderColor = computed(() => {
+    const status = this.systemStatus();
+
+    if (status === 'offline') {
+      return 'rgba(200, 108, 103, 0.38)';
+    }
+
+    if (status === 'checking') {
+      return 'rgba(209, 161, 74, 0.38)';
+    }
+
+    return 'rgba(121, 199, 163, 0.42)';
+  });
   readonly systemStatusShadow = computed(() => {
     if (this.systemStatus() === 'online') {
       return '0 0 0 rgba(121, 199, 163, 0.4)';
